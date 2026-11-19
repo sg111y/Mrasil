@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#14504b">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<script src="tarajim.js" async></script>
+<title>الرواة المرسلون</title>
+<style>
+:root{--fs:17px;--bg:#f3eee2;--card:#fffdf7;--tx:#1c2b2a;--mu:#68716f;--bd:#e3dac6;--gold:#b08d3c;--goldt:#8a6a1f;--gl:#f2e8cb;--ac:#14504b;--onac:#fff;--g:#1b7a4e;--gb:#e6f3eb;--gs:#1d7a4f;--r:#a93226;--rb:#fbe9e6;--rs:#b23a2c;--y:#8d6407;--yb:#fcf3d9;--ys:#a97b0b;--sh:0 1px 2px rgba(20,40,38,.06),0 8px 22px rgba(20,40,38,.07)}
+:root[data-theme=dark]{--bg:#0e1818;--card:#162323;--tx:#ece7da;--mu:#98a6a3;--bd:#2a3b3a;--gold:#d4b56a;--goldt:#dcc27c;--gl:#2d2a18;--ac:#7fd0c4;--onac:#0b2b28;--g:#6fd3a0;--gb:#12342a;--gs:#2c9a68;--r:#ff9a92;--rb:#3a1e1c;--rs:#cf4f40;--y:#f0c15a;--yb:#362f10;--ys:#c4900f;--sh:0 1px 2px rgba(0,0,0,.3),0 8px 22px rgba(0,0,0,.25)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0e1818;--card:#162323;--tx:#ece7da;--mu:#98a6a3;--bd:#2a3b3a;--gold:#d4b56a;--goldt:#dcc27c;--gl:#2d2a18;--ac:#7fd0c4;--onac:#0b2b28;--g:#6fd3a0;--gb:#12342a;--gs:#2c9a68;--r:#ff9a92;--rb:#3a1e1c;--rs:#cf4f40;--y:#f0c15a;--yb:#362f10;--ys:#c4900f;--sh:0 1px 2px rgba(0,0,0,.3),0 8px 22px rgba(0,0,0,.25)}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-padding-top:90px}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:"Amiri","Noto Naskh Arabic","Traditional Arabic","Geeza Pro",Tahoma,serif;font-size:var(--fs);line-height:1.75;padding-bottom:calc(92px + env(safe-area-inset-bottom))}
+button,input,select{font:inherit;color:inherit}
+.hero{position:relative;text-align:center;padding:calc(16px + env(safe-area-inset-top)) 16px 20px;color:#f6ecd0;background:radial-gradient(120% 140% at 80% 0%,#1f7a70 0%,#14504b 45%,#0b312f 100%)}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:linear-gradient(90deg,transparent,#d4b56a,transparent)}
+.hero h1{margin:2px 0 0;font-size:1.6em;font-weight:700;color:#f8e9b9;letter-spacing:.3px}
+.hero p{margin:2px 0 0;font-size:.82em;opacity:.88}
+.hero .orn{display:flex;align-items:center;justify-content:center;gap:10px;margin:6px auto 0;width:150px;color:#d4b56a;font-size:.7em}
+.hero .orn::before,.hero .orn::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,#d4b56a)}
+.hero .orn::after{transform:scaleX(-1)}
+.tools{display:flex;gap:6px;justify-content:flex-start;margin:-4px 0 2px}
+.tools button{width:32px;height:32px;border-radius:50%;border:1px solid rgba(248,233,185,.35);background:rgba(255,255,255,.08);color:#f8e9b9;cursor:pointer;font-size:.8em}
+.sbar{position:sticky;top:0;z-index:20;background:var(--bg);padding:10px 12px 10px;border-bottom:1px solid var(--bd)}
+.srow{display:flex;gap:8px;max-width:900px;margin:auto}
+.sin{position:relative;flex:1;min-width:0}
+.sin svg{position:absolute;right:13px;top:50%;transform:translateY(-50%);width:18px;height:18px;stroke:var(--mu);fill:none;stroke-width:2;stroke-linecap:round}
+.sin input{width:100%;padding:10px 40px 10px 40px;border:1px solid var(--bd);border-radius:14px;background:var(--card);box-shadow:var(--sh);outline:none;font-size:.95em}
+.sin input:focus{border-color:var(--gold)}
+#qc{position:absolute;left:9px;top:50%;transform:translateY(-50%);border:0;background:var(--bd);width:24px;height:24px;border-radius:50%;cursor:pointer;line-height:1;font-size:.7em}
+#qc[hidden]{display:none}
+#ftog{position:relative;width:48px;border:1px solid var(--bd);background:var(--card);border-radius:14px;box-shadow:var(--sh);cursor:pointer;color:var(--ac)}
+#ftog svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+#ftog.on{background:var(--ac);color:var(--onac);border-color:var(--ac)}
+#ftog[data-n]:not([data-n=""])::after{content:attr(data-n);position:absolute;top:-6px;left:-6px;background:var(--gold);color:#fff;border-radius:50%;min-width:19px;height:19px;font-size:11px;display:flex;align-items:center;justify-content:center;font-family:sans-serif}
+#fp{max-width:900px;margin:10px auto 0;display:flex;gap:8px;flex-wrap:wrap}
+#fp[hidden]{display:none}
+#fr{display:contents}
+.fld{flex:1 1 120px;display:flex;flex-direction:column;gap:2px;font-size:.78em;color:var(--mu)}
+.fld select{padding:8px;border:1px solid var(--bd);border-radius:12px;background:var(--card);font-size:1.15em;color:var(--tx)}
+main{max-width:900px;margin:auto;padding:12px}
+.leg{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:.8em;color:var(--mu);margin-bottom:10px}
+.lg{display:inline-flex;gap:5px;align-items:center;padding:0 11px;border-radius:999px;color:#fff;font-weight:700}
+.lg.g{background:var(--gs)}.lg.y{background:var(--ys)}.lg.r{background:var(--rs)}
+.lg.g::before,.bx-g .lb::before{content:"✓"}.lg.y::before,.bx-y .lb::before{content:"⚠"}.lg.r::before,.bx-r .lb::before{content:"✕"}
+.cnt{font-size:.8em;color:var(--mu);margin:2px 4px 10px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:14px 16px;margin-bottom:12px;box-shadow:var(--sh);animation:fi .3s both}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}}
+@media(prefers-reduced-motion:reduce){.card,#sh,.sbox{animation:none!important}}
+.card h3{margin:0 0 8px;font-size:1.12em;font-weight:700;display:flex;align-items:center;gap:8px;line-height:1.5}
+.num{min-width:26px;height:26px;border-radius:50%;background:var(--gl);color:var(--goldt);font-size:.7em;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-family:sans-serif}
+.cp{margin-right:auto;font-size:.72em;padding:1px 12px;border:1px solid var(--bd);background:none;color:var(--mu);border-radius:999px;cursor:pointer}
+.meta{display:flex;gap:6px;flex-wrap:wrap;margin:-2px 0 10px}
+.meta span{font-size:.72em;padding:0 10px;border-radius:999px;border:1px solid var(--gold);color:var(--goldt)}
+.bar{display:flex;height:7px;border-radius:999px;overflow:hidden;gap:2px;margin:0 0 4px;background:var(--bd)}
+.bar i{display:block;height:100%}.b-g{background:var(--gs)}.b-y{background:#d4a017}.b-r{background:var(--rs)}.b-a{background:var(--ac)}
+.bx{border-radius:14px;padding:8px 10px 6px;margin-top:10px;border:1px solid}
+.bx-g{background:var(--gb);border-color:rgba(29,122,79,.35)}.bx-y{background:var(--yb);border-color:rgba(169,123,11,.4)}.bx-r{background:var(--rb);border-color:rgba(178,58,44,.35)}
+.lb{display:inline-flex;align-items:center;gap:6px;padding:1px 12px;border-radius:999px;font-size:.82em;font-weight:700;color:#fff;margin-bottom:4px}
+.lb small{background:rgba(255,255,255,.25);border-radius:999px;padding:0 8px;font-size:.9em;font-family:sans-serif}
+.bx-g .lb{background:var(--gs)}.bx-y .lb{background:var(--ys)}.bx-r .lb{background:var(--rs)}
+.chip{display:inline-flex;align-items:center;gap:6px;margin:3px 0 3px 6px;padding:2px 12px;border-radius:999px;background:var(--card);border:1px solid var(--bd);font-size:.88em;cursor:pointer;transition:transform .1s}
+.chip:active{transform:scale(.97)}
+.chip::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--dot)}
+.c-g{--dot:var(--gs)}.c-y{--dot:var(--ys)}.c-r{--dot:var(--rs)}
+.chip em{font-style:normal;font-size:.78em;padding:0 8px;border-radius:999px;background:var(--gl);color:var(--goldt)}
+.rj{font-style:normal;font-size:.72em;padding:0 8px;border-radius:999px;color:#fff}.rj.g{background:var(--gs)}.rj.r{background:var(--rs)}
+.empty{text-align:center;padding:48px 10px;color:var(--mu);display:flex;flex-direction:column;gap:6px;align-items:center}
+.empty .ei{font-size:2.6em;opacity:.55}.empty b{color:var(--tx)}
+.empty button{margin-top:8px;padding:8px 20px;border-radius:12px;border:1px solid var(--ac);background:none;color:var(--ac);cursor:pointer}
+.sm{display:flex;gap:8px;margin:4px 0 8px}
+.sm .s{flex:1;text-align:center;border-radius:14px;padding:10px 4px;color:#fff;font-size:.85em}
+.sm .s b{display:block;font-size:1.6em;font-family:sans-serif;line-height:1.3}.sm .s small{display:block;opacity:.85;font-family:sans-serif}
+.sm .g{background:var(--gs)}.sm .y{background:var(--ys)}.sm .r{background:var(--rs)}
+.bi{display:flex;align-items:center;gap:10px;padding:5px 0;cursor:pointer}
+.bi .bn{flex:0 0 38%;font-size:.9em;line-height:1.4}
+.bi .bt2{flex:1;height:9px;background:var(--bd);border-radius:999px;overflow:hidden}
+.bi .bt2 i{display:block;height:100%;border-radius:999px}.bi b{min-width:30px;text-align:left;font-family:sans-serif;font-size:.85em}
+#sh{position:fixed;inset:0;background:rgba(8,20,19,.55);z-index:50;display:flex;align-items:flex-end;justify-content:center;animation:fo .2s}
+@keyframes fo{from{opacity:0}}
+#sh[hidden]{display:none}
+.sbox{background:var(--card);width:100%;max-width:680px;border-radius:26px 26px 0 0;padding:0 18px calc(18px + env(safe-area-inset-bottom));max-height:86vh;overflow:auto;animation:su .25s ease-out;box-shadow:0 -10px 40px rgba(0,0,0,.25)}
+@keyframes su{from{transform:translateY(40px);opacity:0}}
+.grab{position:sticky;top:0;z-index:2;background:var(--card);display:flex;justify-content:center;padding:10px 0 6px}
+.grab i{width:44px;height:5px;border-radius:3px;background:var(--bd)}
+#shx{position:absolute;left:-6px;top:4px;width:32px;height:32px;border-radius:50%;border:0;background:var(--bd);cursor:pointer}
+.sbox h2{margin:6px 0 10px;font-size:1.12em;line-height:1.6}
+.st{display:inline-flex;align-items:center;gap:6px;padding:1px 14px;border-radius:999px;font-weight:700;font-size:.85em;color:#fff}
+.st.g{background:var(--gs)}.st.y{background:var(--ys)}.st.r{background:var(--rs)}
+.rjl{margin:10px 0 0;padding:6px 12px;border-radius:10px;background:var(--gl);color:var(--goldt);font-weight:700;font-size:.9em}
+.ct{margin:12px 0 4px;font-size:1.05em;font-weight:700;color:var(--ac)}
+.tx{margin:8px 0;padding:12px 14px;border-radius:12px;background:var(--bg);border:1px solid var(--bd);font-size:.93em;line-height:1.9}
+.ht{margin:14px 0 8px;font-weight:700;color:var(--goldt);font-size:.95em;display:flex;align-items:center;gap:8px}
+.ht::after{content:"";flex:1;height:1px;background:var(--bd)}
+.hi{padding:10px 14px;margin-bottom:8px;border-right:4px solid var(--gold);background:var(--bg);border-radius:10px;line-height:1.95;font-size:.93em}
+.bt{display:flex;gap:8px;margin-top:12px}
+.bt button{flex:1;padding:10px;border-radius:12px;border:1px solid var(--bd);background:var(--card);cursor:pointer;font-weight:600}
+.bt:last-of-type button{background:var(--ac);color:var(--onac);border-color:var(--ac)}
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;background:var(--card);border-top:1px solid var(--bd);padding:6px 6px calc(6px + env(safe-area-inset-bottom));box-shadow:0 -6px 24px rgba(20,40,38,.08)}
+.nav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px;border:0;background:none;color:var(--mu);font-size:.72em;cursor:pointer;border-radius:12px;position:relative}
+.nav svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.nav button.on{color:var(--ac);font-weight:700}
+.nav button.on::before{content:"";position:absolute;top:-7px;width:30px;height:3px;border-radius:0 0 3px 3px;background:var(--gold)}
+.about{max-width:900px;margin:6px auto 0;padding:10px 16px;text-align:center;color:var(--mu);font-size:.76em;line-height:1.9}
+.about button{font:inherit;padding:8px 22px;border-radius:12px;border:0;background:var(--ac);color:var(--onac);margin-bottom:8px;cursor:pointer}.about button[hidden]{display:none}
+#ts,#upd,#up{position:fixed;z-index:60}
+#ts{bottom:calc(86px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);background:#162323;color:#fff;padding:7px 18px;border-radius:999px;font-size:.85em;box-shadow:var(--sh)}
+#ts[hidden],#up[hidden],#upd[hidden]{display:none}
+#upd{left:12px;right:12px;bottom:calc(86px + env(safe-area-inset-bottom));display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--ac);color:var(--onac);padding:10px 14px;border-radius:16px;box-shadow:0 8px 28px rgba(0,0,0,.3);font-size:.9em}
+#upd button{font-weight:700;padding:5px 16px;border-radius:999px;border:0;background:var(--gold);color:#fff;cursor:pointer}
+#up{left:14px;bottom:calc(92px + env(safe-area-inset-bottom));width:42px;height:42px;border-radius:50%;border:1px solid var(--bd);background:var(--card);box-shadow:var(--sh);cursor:pointer;color:var(--ac)}
+.tjb{margin-right:auto;font-size:.72em;padding:1px 12px;border:1px solid var(--gold);background:var(--gl);color:var(--goldt);border-radius:999px;cursor:pointer;font-weight:700}
+.tjb~.cp{margin-right:0}
+.rws{display:flex;flex-wrap:wrap;gap:6px}
+.rw{font-size:.85em;padding:2px 12px;border-radius:999px;border:1px solid var(--bd);background:var(--bg)}
+.rw.lk{border-color:var(--gold);color:var(--goldt);cursor:pointer;font-weight:600}
+
+.nm{cursor:pointer;border-bottom:1.5px dotted var(--gold);text-decoration:none;color:inherit}
+.tgrp{margin:16px 4px 8px;font-weight:700;color:var(--goldt);display:flex;align-items:center;gap:8px}
+.tgrp::after{content:"";flex:1;height:1px;background:var(--bd)}
+.tri{display:block;padding:10px 14px;background:var(--card);border:1px solid var(--bd);border-radius:14px;margin-bottom:8px;cursor:pointer}
+.tri b{display:block;line-height:1.5}
+.tri span{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;color:var(--mu);font-size:.8em;line-height:1.7}
+.nav button{font-size:.68em}
+</style>
+</head>
+<body>
+<header class="hero"><div class="tools"><button id="fzm" aria-label="تصغير الخط">أ−</button><button id="fzp" aria-label="تكبير الخط">أ+</button><button id="th" aria-label="المظهر">◐</button></div><h1>الرواة المرسلون</h1><p>مَن سمع ومَن لم يسمع ومَن اختُلف فيه</p><div class="orn">◆</div></header>
+<div class="sbar">
+<div class="srow"><div class="sin"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="q" type="search" placeholder="ابحث عن راوٍ أو صحابي أو حديث…" autocomplete="off"><button id="qc" hidden aria-label="مسح">✕</button></div><button id="ftog" aria-label="تصفية"><svg viewBox="0 0 24 24"><path d="M4 6h16M7 12h10M10 18h4"/></svg></button></div>
+<div id="fp" hidden><div class="fld" id="fs"><span>الحالة</span><select id="f"><option value="">الكل</option><option value="+">سمع</option><option value="-">لم يسمع</option><option value="?">مختلف فيه</option></select></div><div id="fr"><div class="fld"><span>الطبقة</span><select id="ft"><option value="">كل الطبقات</option><option>الأولى</option><option>الثانية</option><option>الثالثة</option><option>الرابعة</option><option>الخامسة</option><option>السادسة</option><option>السابعة</option></select></div><div class="fld"><span>البلد</span><select id="fb"><option value="">كل البلدان</option><option>مدني</option><option>كوفي</option><option>بصري</option><option>شامي</option><option>مكي</option><option>مصري</option><option>مروزي</option><option>حجازي</option></select></div></div></div>
+</div>
+<main><div class="leg"><span class="lg g">سمع</span><span class="lg y">مختلف فيه</span><span class="lg r">لم يسمع</span><span>— اضغط على أي اسم مسطّر بالنقط لترجمته، وعلى الأسماء داخل الصناديق لتفاصيل السماع</span></div><div id="out"></div>
+<div class="about"><button id="ins" hidden>تثبيت التطبيق</button><div>المصدر: ملف «الرواة المرسلين» — وقف أبي هريرة لحفظ السنّة النبوية. البيانات مُدخلة يدويًا من الملف، فراجع الأصل عند الاعتماد.</div><div>للتثبيت على الآيفون: زر المشاركة ← «إضافة إلى الشاشة الرئيسية». ويعمل بعد ذلك دون إنترنت.</div></div></main>
+<nav class="nav"><button id="t1" class="on"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>الرواة</button><button id="t2"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-3.6 3-6 7-6s7 2.4 7 6"/><circle cx="17" cy="9" r="2.5"/><path d="M17 14c3 0 5 1.8 5 4.5"/></svg>الصحابة</button><button id="t3"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h7"/></svg>المراسيل</button><button id="t4"><svg viewBox="0 0 24 24"><path d="M5 20V10M12 20V4M19 20v-7"/></svg>إحصائيات</button><button id="t5"><svg viewBox="0 0 24 24"><path d="M5 4h11a3 3 0 013 3v13H8a3 3 0 01-3-3z"/><path d="M5 17a3 3 0 013-3h11M9 8h6"/></svg>التراجم</button></nav>
+<div id="ts" hidden></div>
+<div id="upd" hidden><span>يتوفر إصدار جديد من التطبيق</span><button id="updb">تحديث الآن</button></div>
+<button id="up" hidden aria-label="للأعلى"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 15l6-6 6 6"/></svg></button>
+<div id="sh" hidden><div class="sbox"><div class="grab"><i></i><button id="shx" aria-label="إغلاق">✕</button></div><div id="shc"></div></div></div>
+
+<script>
+const S={A:'أبو هريرة',B:'عائشة',C:'عمر بن الخطاب',D:'علي بن أبي طالب',E:'ابن عمر',F:'ابن عباس',G:'ابن مسعود',H:'أنس بن مالك',I:'أبو سعيد الخدري',J:'معاذ بن جبل',K:'جابر بن عبدالله',L:'عثمان بن عفان',M:'أبو بكر الصديق',N:'سعد بن أبي وقاص',O:'أبو الدرداء',P:'أبو موسى الأشعري',Q:'سلمان الفارسي',R:'عبادة بن الصامت'};
+// الصيغة: الراوي|صحابي+ (سمع) أو - (لم يسمع) أو ? (مختلف فيه)، والحرف الواحد رمز لصحابي
+const D=`الحسن البصري|أبو بكرة+,معقل بن يسار+,عمرو بن تغلب+,E+,عثمان بن أبي العاص?,سمرة بن جندب?,جندب البجلي?,عمران بن حصين?,عبدالله بن عمرو?,L?,عائذ بن عمرو?,C-,الأسود بن سريع-,سلمة بن المحبق-,عتبة بن غزوان-,عقبة بن عامر-,عقيل بن أبي طالب-,عمار بن ياسر-,عمرو بن العاص-,النعمان بن بشير-,أبو أمامة الباهلي-,O-,I-,P-,أبي بن كعب-,أسامة بن زيد-,ثوبان-,سعد بن عبادة-,K-,B-,F-,D-,A-
+أبان بن عثمان|L?
+إبراهيم بن عبدالله بن حنين|D-
+إبراهيم بن عبدالرحمن بن عوف|C?
+إبراهيم التيمي|B-
+إبراهيم النخعي|C-,G-,B-
+أبو أمامة أسعد بن سهل|C?
+أبو الجوزاء|C-,D-,G-,B?
+البراء بن ناجية|G?
+بريد بن أبي مريم|P-
+بسر بن سعيد|C-,L?
+بشير بن نهيك|A?
+بكر بن سوادة|عبدالله بن عمرو?
+بكر المزني|المغيرة بن شعبة?
+بيان بن بشر|H?
+ثابت البناني|A?,F?,أبو برزة?,عبدالله بن مغفل?
+جبير بن نفير|M?
+حبيب بن أبي ثابت|F+,B+,E+,حكيم بن حزام-,زيد بن أرقم-,أم سلمة-
+حرام بن سعد|البراء بن عازب?
+الحسن العرني|F-
+أبو ظبيان|Q?,D?
+حميد بن عبدالرحمن|عبدالرحمن بن عوف?,C-
+خالد بن دريك|E-,B-
+خالد بن معدان|R-,O-,B-,J-
+خالس بن عمرو|D-,A-
+أبو صالح السمان|M-,C-,O-
+راشد بن سعد|ثوبان?
+زرارة بن أوفى|تميم الداري?,عبدالله بن سلام?,F?,عمران بن حصين?
+زيد بن أسلم|E+,K?,A-,B-
+سالم بن أبي الجعد|C-,A-,B-,D-,ثوبان-,زياد بن لبيد-,شرحبيل بن السمط-
+سالم بن عبدالله بن عمر|C-,A+,E+,B?
+سعد بن إبراهيم|عبدالله بن جعفر?
+سعيد بن جبير|D-,P-,B-,عبدالله بن مغفل?
+سعيد المقبري|B-,أم سلمة-
+أبو البختري|D-,Q-
+سعيد بن مرجانة|I?,A+
+سعيد بن المسيب|M-,C?,أبي بن كعب-,H-,بلال-,سراقة بن مالك-,سعد بن عبادة-,عتاب بن أسيد-,أبو ثعلبة الخشني-,O-,أبو ذر-,زيد بن ثابت?
+سعيد بن أبي هند|P-,A-
+أبو حازم سلمة بن دينار|سهل بن سعد+,E?
+سليمان بن بريدة|بريدة بن الحصيب?
+الأعمش|H-,عبدالله بن أبي أوفى-
+سليمان بن يسار|سلمة بن صخر-,عبدالله بن حذافة-,الفضل بن عباس-,المقداد-,B+
+شريح بن عبيد|N-,O-,أبو مالك الأشعري-
+أبو وائل|D+,J?,B+
+طاوس|C-,J-,سراقة بن مالك-,B?,A+
+أبو تميمة الهجيمي|A-
+طلحة بن مصرف|H?
+الشعبي|E+,R-,G-,D?,B?,أم سلمة?
+عبدالله بن بريدة|بريدة بن الحصيب?,B-
+أبو عبدالرحمن السلمي|C?,L?,D?,G?
+أبو الزناد|H?
+أبو قلابة|C-,F-,معاوية بن أبي سفيان-,أبو ثعلبة الخشني-,حذيفة-,A?,B-
+ابن أبي مليكة|L-,طلحة بن عبيدالله-
+عبدالله بن معبد الزماني|أبو قتادة?
+عبدالجبار بن وائل|وائل بن حجر-
+عبدالرحمن بن الأسود|B?
+عبدالرحمن بن سابط|N-,K?
+عبدالرحمن بن شماسة|أبو ذر?,B?
+عبدالرحمن بن عائذ|D-,J-
+عبدالرحمن بن عبدالله بن كعب|كعب بن مالك?
+عبدالرحمن بن عبدالله بن مسعود|G?
+عبدالرحمن بن أبي ليلى|أسيد بن حضير-,بلال-,عبدالله بن زيد بن عبد ربه-,ابن أم مكتوم-,C?,J-
+عبدة بن أبي لبابة|E+,C-
+عبيدالله بن عبدالله بن عتبة|C-,عمار بن ياسر-,G?
+عراك بن مالك|B?,A+
+عروة بن الزبير|الزبير بن العوام?,C-,N-,D-,زيد بن ثابت?
+عطاء بن أبي رباح|L-,أسامة بن زيد-,أوس بن الصامت-,رافع بن خديج-,زيد بن خالد الجهني-,عتاب بن أسيد-,أم سلمة-,أم كرز-,E?,I?
+عطاء بن يسار|J-
+عكرمة بن خالد|F?
+عكرمة مولى ابن عباس|D-,B?
+علقمة بن قيس|C?
+علي بن الحسين|D-,B?
+عمر بن عبدالعزيز|عقبة بن عامر-,خولة بنت حكيم-
+عمرو بن دينار|A-
+عمرو بن شرحبيل|C?
+أبو إسحاق السبيعي|D-,النعمان بن بشير+,سليمان بن صرد+,جابر بن سمرة?,خالد بن عرفطة?,ذو الجوشن-,H-
+عمرو بن أبي قرة|Q?
+عمرو بن مرة|F-
+عون بن عبدالله|G-
+القاسم بن عبدالرحمن بن عبدالله|G-,أبو ذر-,C-,جابر بن سمرة+
+القاسم صاحب أبي أمامة|أبو أمامة الباهلي+,D?,G?,Q-,B-,تميم الداري-,A-
+القاسم بن محمد|G-,زينب بنت جحش-,M-
+قبيصة بن ذؤيب|عمرو بن العاص-,تميم الداري?,M-
+قتادة بن دعامة|I-,عمران بن حصين-,النعمان بن مقرن-,H+
+قدامة بن وبرة|سمرة بن جندب-
+القعقاع بن حكيم|B-,A?
+قيس بن أبي حازم|عبدالله بن رواحة-,O?,Q?,بلال?,عقبة بن عامر?,M+
+كريب|الفضل بن عباس-
+أبو مجلز|حذيفة-
+محمد بن إبراهيم التيمي|H-,K-,I-,B-,أسامة بن زيد-,قيس بن عمرو-
+محمد بن ركانة|ركانة-
+ابن سيرين|F-,كعب بن عجرة-,B-,عمران بن حصين+
+محمد الباقر|D-,الحسن بن علي-,B-,أم سلمة-,حفصة-
+محمد بن علي بن عبدالله|F-
+محمد بن كعب القرظي|G-,العباس-
+محمد بن مالك|البراء بن عازب-
+أبو الزبير|F-,B-,عبدالله بن عمرو-,E+
+الزهري|K-,رافع بن خديج-,R-,A-,عبدالرحمن بن أزهر-,E-
+ابن المنكدر|A-,Q-,أبو قتادة-,B?
+مجاهد|E+,A+,سراقة بن مالك-,كعب بن عجرة-,أبو العياش الزرقي-,يعلى بن أمية-,رافع بن خديج-,I-,N-,B?
+مرة الطيب|M-,C-
+أبو الضحى|D-,G-
+مسلم بن أبي مريم|I-
+مصعب بن ثابت|عبدالله بن الزبير-
+المطلب بن حنطب|H-,زيد بن ثابت-,A-,B?,E?,K?
+معاوية بن قرة|E-
+مكحول|أبي بن كعب-,R-,عقبة بن عامر-,A-,أبو أمامة الباهلي-,عنبسة بن أبي سفيان-,B-,H?,واثلة بن الأسقع?
+ميمون بن أبي شبيب|D-,B-,J-
+ميمون بن مهران|C-,الزبير بن العوام-
+نافع مولى ابن عمر|C-,B-,حفصة-,أم سلمة-
+يحيى بن أبي كثير|H-
+يحيى بن يعمر|B-,عمار بن ياسر-
+يزيد بن رومان|A-
+أبو نجيح|N-
+يعقوب بن سلمة|A-
+أبو إدريس الخولاني|C-,J-
+أبو بكر بن محمد بن عمرو بن حزم|عمرو بن حزم-,عبدالله بن زيد بن عبد ربه-
+أبو زرعة بن عمرو بن جرير|C-
+أبو سلمة بن عبدالرحمن|عبدالرحمن بن عوف-,طلحة بن عبيدالله-,R-,معقل بن يسار-
+أبو مرزوق التجيبي|فضالة بن عبيد-
+فاطمة بنت الحسين|فاطمة بنت رسول الله-`;
+const P=D.split('\n').map((l,i)=>{const[n,e]=l.split('|');return{i:i+1,n,e:e.split(',').map(x=>{const k=x.slice(0,-1);return{s:S[k]||k,m:x.slice(-1)}})}});
+const L={'+':'سمع','-':'لم يسمع','?':'مختلف فيه'},C={'+':'g','-':'r','?':'y'},IC={'+':'✓','-':'✗','?':'⚠'};
+// تفاصيل: الراوي|الصحابي|عدد الأحاديث|التفصيل
+const DT={};`الحسن البصري|سمرة بن جندب|30|اختُلف على ثلاثة أقوال: النفي مطلقًا (شعبة ويحيى القطان وأحمد وابن معين وابن حبان) وأن حديثه عنه من كتاب؛ والإثبات (ابن المديني والبخاري وأبو داود والحاكم) وفي البخاري أنه سأل الحسن ممن سمع حديث العقيقة فقال: من سمرة؛ وأنه لم يسمع إلا حديث العقيقة (النسائي والدارقطني والبزار وابن حزم). له في السنن قريبًا من 30 حديثًا.
+الحسن البصري|عمران بن حصين|15|قولان: لم يسمع (يحيى القطان وابن المديني والبخاري ومسلم وأبو حاتم والبيهقي والمنذري)، أو سمع (البزار وابن حبان والحاكم والنووي وابن حجر) وتوقف أحمد وابن معين. صرّح الحسن بسماعه منه. أخرج له أصحاب السنن الأربعة 15 حديثًا، وله عنه في غير الستة قريبًا من 60 حديثًا.
+الحسن البصري|أبو بكرة|13|نفاه ابن معين والدارقطني، وأثبته بهز وابن المديني والبزار والنووي وابن حجر، وصرّح الحسن بسماعه منه كما في صحيح البخاري. له 13 حديثًا (البخاري والأربعة)، منها: «زادك الله حرصًا ولا تعد».
+الحسن البصري|A|20|نفى سماعه جمهور الأئمة: أيوب ويونس بن عبيد ويحيى القطان وأحمد وابن معين وابن المديني وأبو زرعة وأبو حاتم وأبو داود والنسائي والبزار وابن حبان والحاكم والدارقطني وغيرهم، وأثبته بعض المتأخرين (مغلطاي، وابن حجر في موضع، وأحمد شاكر، والألباني). أخرج له البخاري والأربعة قريبًا من 20 حديثًا.
+الحسن البصري|معقل بن يسار|6|نفاه أبو حاتم، وأثبته أبو زرعة وأبو داود والبزار وابن حبان. أخرج الشيخان حديثين فيهما تصريحه بالسماع. له في الكتب الستة 6 أحاديث، وسماعه منه ثابت.
+الحسن البصري|جندب البجلي|4|نفاه أبو حاتم، وأثبته ابن المديني وخرّجه الشيخان، وتوقف ابن معين. له عنه 4 أحاديث (الستة غير أبي داود)، منها: «ما من جرعة أعظم أجرًا عند الله من جرعة غيظ كظمها عبد».
+الحسن البصري|E||أثبته ابن عون وبهز وأحمد وابن المديني وابن معين وأبو حاتم، وهو الأظهر لثبوت قوله: «دخلنا على ابن عمر بالبطحاء» (المسند). ونفاه ابن حبان والحاكم.
+الحسن البصري|عثمان بن أبي العاص|3|نفاه الحاكم، وأثبته ابن المديني وابن معين والبزار، وصرّح الحسن بلقيه. أخرج له أهل السنن 3 أحاديث.
+الحسن البصري|عبدالله بن عمرو|2|نفاه ابن المديني وابن معين، وأثبته أبو حاتم. له حديثان (النسائي وابن ماجه)، منهما: «لا ينظر الله إلى امرأة لا تشكر لزوجها».
+الحسن البصري|L|1|نفاه أبو زرعة والبزار والعلائي، وأثبته ابن المديني وأثبت ابن معين رؤيته له. صرّح الحسن برؤيته عثمان وهو يخطب، وكان عمره يوم الدار 14 سنة. حديثه عنه (ابن ماجه): أن النبي ﷺ رأى رجلًا وراء حمامة فقال: «شيطان يتبع شيطانًا».
+الحسن البصري|D|3|لم يسمع منه، وقد رآه بالمدينة وهو غلام، وعليه عامة المحدثين وخالف السيوطي ومغلطاي. له 3 أحاديث (الترمذي والنسائي وابن ماجه).
+الحسن البصري|عمرو بن تغلب||الأكثرون على سماعه (أحمد وابن معين وأبو حاتم)، ونفاه ابن المديني. أخرج البخاري تصريحه بالسماع في حديثين، وللنسائي حديث ثالث.
+الحسن البصري|F|2|لم يسمع منه عند عامة الأئمة (وخالف أحمد شاكر). له حديثان: زكاة الفطر، وصيام عاشوراء. وقوله «خطبنا ابن عباس» صحّح البخاري والبيهقي أن الصواب «خطب ابن عباس».
+الحسن البصري|K|11|لم يسمع منه، وله عنه في السنن 11 حديثًا، منها قول النبي ﷺ لبلال: «إذا أذنت فترسل في أذانك وإذا أقمت فاحدر».
+الحسن البصري|عائذ بن عمرو||نفى ابن المديني سماعه منه. حديثه عنه في صحيح مسلم: «إن شر الرعاء الحطمة»، وقد تفرّد به مسلم.
+حبيب بن أبي ثابت|F||أثبت سماعه ابن المديني والبخاري ومسلم والعجلي.
+حبيب بن أبي ثابت|E|3|نفاه ابن المديني، وأثبته البخاري ومسلم والعجلي وابن خزيمة والحاكم، وصرّح حبيب بسماعه منه بأسانيد ثابتة. أخرج له الأربعة 3 أحاديث.
+حبيب بن أبي ثابت|زيد بن أرقم|1|لم يصرّح بالسماع منه (الترمذي). حديثه: «إني تارك فيكم ما إن تمسكتم به لن تضلوا...» وأصله في صحيح مسلم من طريق أخرى.
+حبيب بن أبي ثابت|أم سلمة|1|نفى سماعه منها ابن المديني وأبو زرعة والحاكم والمزي. حديثه (ابن ماجه): «كان إذا اطّلى بدأ بعورته». وأعلّه البيهقي بأنه مرسل من طريق الثوري ومنصور.
+حبيب بن أبي ثابت|حكيم بن حزام|1|نفى سماعه ابن المديني والترمذي والمزي، ولم يثبته أحد. حديثه في شراء أضحية (الترمذي).
+سعيد بن المسيب|C|11|أكثرهم على عدم سماعه منه وإن أثبتوا رؤيته. وأثبته أحمد وابن المديني، وأخرجه البخاري، وثبت تصريحه بالسماع. أخرج له الستة سوى مسلم 11 حديثًا، ولعله سمعه يخطب وبقيته من تتبّعه لقضاء عمر وفتاواه.
+سعيد بن المسيب|سعد بن عبادة||حديثه (أبو داود): أن سعدًا أتى النبي ﷺ فقال: أي الصدقة أعجب إليك؟ قال: «الماء».
+سعيد بن المسيب|سراقة بن مالك||حديثه مرفوعًا: «خيركم المدافع عن عشيرته ما لم يأثم» (أبو داود).
+سعيد بن المسيب|عتاب بن أسيد||حديثه: أن النبي ﷺ أمر أن يخرص العنب كما يخرص النخل وتؤخذ زكاته زبيبًا (أبو داود).
+سعيد بن المسيب|زيد بن ثابت||نفاه الإمام مالك، وأثبته النووي والذهبي والسخاوي.
+الشعبي|E||الصواب أن سماعه منه ثابت. له عن ابن عمر وعبادة وعلي 4 أحاديث، أخرج البخاري أحدها وهو الذي أثبته الدارقطني.
+الشعبي|D||أثبت رؤيته له واختلف في سماعه: أثبته الخطيب وأخرجه البخاري، وقال الدارقطني: «سمع منه حرفًا، ما سمع منه غير هذا».
+الشعبي|B|6|نفاه ابن المديني وابن معين والنسائي والمنذري والعلائي، وأثبته أبو داود. أخرج له الأربعة سوى ابن ماجه 6 أحاديث ولم يصرّح فيها بالسماع.
+الشعبي|أم سلمة||نفاه ابن المديني وأثبته أبو داود والحاكم. حديثه عنها: «اللهم أعوذ بك أن أضل أو أضل...» (الأربعة).
+الزهري|A||قال الترمذي: «والزهري لم يسمع من أبي هريرة». له عنه عند النسائي حديث في فضل رمضان.
+الزهري|K||أخرج البخاري حديثه عن جابر وقال في آخره: «حدثني من سمع جابرًا»، فبيّن الواسطة.
+الزهري|E|3|لم يسمع منه. للنسائي عنه 3 أحاديث: صلاة الخوف، والرمل بين الصفا والمروة، وثالث.
+مجاهد|B||نفاه شعبة ويحيى القطان وابن معين وأبو حاتم، وأثبته البخاري ومسلم في صحيحيهما وصرّح بسماعه منها في أكثر من حديث (أخرجه الستة سوى الترمذي).
+مجاهد|E||سماعه ثابت، وقد صرّح بسماعه منه وبصحبته له.
+أبو قلابة|A||نفى سماعه الحاكم والمنذري والدمياطي والعلائي، لكنه صرّح بسماعه بحديث لا بأس به. حديثه (النسائي): «أتاكم رمضان شهر مبارك...».
+أبو قلابة|B|3|لم يسمع منها (أبو حاتم والترمذي والبيهقي وابن عساكر والمزي والذهبي وابن حجر)، وهو يروي عنها بواسطة. حديثه: «إن من أكمل المؤمنين إيمانًا أحسنهم خلقًا وألطفهم بأهله».
+سليمان بن بريدة|بريدة بن الحصيب|17|نفاه إبراهيم الحربي، وخرّج له مسلم. أدرك من حياة أبيه أكثر من أربعين سنة وعاش معه في مرو ولم يُعرف بتدليس. أخرج له مسلم والأربعة 17 حديثًا، لمسلم منها 10.
+عبدالرحمن بن عبدالله بن مسعود|G|15|نفاه شعبة وابن معين في رواية والحاكم وابن الجوزي، وأثبته عبدالملك بن عمير وابن المديني والبخاري وأبو حاتم والعجلي والمزي، وصحّحه الترمذي وابن خزيمة وابن حبان. ثبت تصريحه في أربعة مواضع، وتوفي أبوه وعمره ست سنين. له 15 حديثًا في السنن الأربع.
+حميد بن عبدالرحمن|عبدالرحمن بن عوف|3|أثبت سماعه أبو حاتم والعلائي، وأدرك من حياة أبيه عشر سنين. له 3 أحاديث (الترمذي والنسائي): الابتلاء بالضراء والسراء، وحديث العشرة المبشرين، و«الصيام في السفر كالإفطار في الحضر».
+أبو عبدالرحمن السلمي|D|11|نفاه أبو حاتم، وأثبته البخاري والخطيب والذهبي، وأخرجه الشيخان، وصرّح بسماعه منه في بعض الطرق الصحيحة. له 11 حديثًا في الكتب الستة.
+أبو عبدالرحمن السلمي|G|5|نفاه شعبة ووهّمه أحمد، وأثبته أحمد والبخاري والخطيب والذهبي. له عنه 5 أحاديث عند الترمذي والنسائي وابن ماجه.
+بشير بن نهيك|A|12|نقل الترمذي عن البخاري «لا أرى له سماعًا»، لكن البخاري أثبت سماعه في «التاريخ الكبير» ومسلم في «الكنى». له 12 حديثًا، اتفق الشيخان على ثلاثة وزاد مسلم رابعًا.
+أبو إسحاق السبيعي|النعمان بن بشير||سماعه منه صحيح، وحديثه عنه في الصحيحين مصرّحًا فيه بالسماع.
+أبو إسحاق السبيعي|سليمان بن صرد|3|الصواب أنه سمع منه. في البخاري: «سمعت النبي ﷺ يقول حين أجلى الأحزاب: الآن نغزوهم ولا يغزونا»، وله عنه حديثان آخران عند النسائي.
+أبو إسحاق السبيعي|D||رآه وهو يخطب ولم يسمع منه على الصحيح، ويروي حديثه بواسطة أصحابه.
+القاسم صاحب أبي أمامة|أبو أمامة الباهلي|25|سماعه منه ثابت. له في السنن 25 حديثًا، منها: «إن سياحة أمتي الجهاد في سبيل الله»، و«اسم الله الأعظم في سور ثلاث: البقرة وآل عمران وطه». وفي حديثه بعض المناكير والاضطراب لعله من الضعفاء عنه.
+ابن سيرين|عمران بن حصين|10|نفاه الدارقطني، وأثبته أحمد وابن معين، وهو الصواب لتصريحه بالتحديث عنه عند مسلم. أخرجوا له قريبًا من 10 أحاديث، لمسلم منها 3.
+ابن سيرين|F||لم يسمع منه (شعبة وأحمد وابن المديني وابن معين)، وإنما سمع أحاديثه من عكرمة. أخرج البخاري له حديثًا واحدًا ثم عقّبه بإسناده عن عكرمة عن ابن عباس.
+عبدالرحمن بن أبي ليلى|C||نفاه شعبة ووكيع وابن المديني وابن معين وأبو حاتم والنسائي والدارقطني، وأثبت مسلم في مقدمة صحيحه أنه حفظ عن عمر. يروي عنه بواسطة كعب بن عجرة أو البراء. قُتل عمر وعمره ست سنين.
+عبدالرحمن بن أبي ليلى|J|5|لم يسمع منه، وله عنه في السنن الأربعة 5 أحاديث.
+سعيد بن جبير|عبدالله بن مغفل||نفاه أحمد وأبو داود، وأخرجه مسلم في صحيحه، وهو حديث النهي عن الخذف.
+طاوس|A||سماعه ثابت بلا إشكال.
+طاوس|B||نفاه ابن المديني وابن معين وأبو داود، وأثبته مسلم في صحيحه والحاكم والطحاوي والنووي والذهبي.
+عطاء بن أبي رباح|E|6|نفاه يحيى القطان وأحمد وابن معين، وأثبته ابن المديني (في العلل) والبخاري ومسلم. له عنه 6 أحاديث في السنن الأربع.
+عطاء بن أبي رباح|زيد بن خالد الجهني|1|لم يسمع منه. حديثه: «من فطّر صائمًا كان له مثل أجره غير أنه لا ينقص من أجر الصائم شيئًا».
+سليمان بن يسار|B||الصواب أنه سمع منها سماعًا بيّنًا، وحديثه عنها في الصحاح.
+سالم بن عبدالله بن عمر|B||نفاه مالك والبخاري، وأثبته النووي والذهبي والسخاوي.
+سعيد بن مرجانة|A||أثبته البخاري، وحديثه عنه في الصحيحين، وقد صرّح بسماعه منه.
+عراك بن مالك|B||أنكره أحمد ونفاه الحاكم وابن القيم وقالوا بينهما عروة، وأخرجه مسلم وابن حبان على شرط المعاصرة وإمكان اللقاء.`.split('\n').forEach(l=>{const[n,k,c,...t]=l.split('|');DT[n+'|'+(S[k]||k)]={c,t:t.join('|')}});
+const HD={};`الحسن البصري|أبو بكرة|انتهى إلى النبي ﷺ وهو راكع، فركع قبل أن يصل إلى الصف، فذكر ذلك للنبي ﷺ فقال: «زادك الله حرصًا ولا تعد» (البخاري وغيره).
+الحسن البصري|جندب البجلي|«ما من جرعة أعظم أجرًا عند الله من جرعة غيظ كظمها عبد ابتغاء وجه الله».
+الحسن البصري|L|أن النبي ﷺ رأى رجلًا وراء حمامة فقال: «شيطان يتبع شيطانًا» (ابن ماجه).
+الحسن البصري|عبدالله بن عمرو|«لا ينظر الله إلى امرأة لا تشكر لزوجها».
+الحسن البصري|عائذ بن عمرو|دخل عائذ بن عمرو على عبيدالله بن زياد فقال: «أي بني، إني سمعت رسول الله ﷺ يقول: إن شر الرعاء الحطمة، فإياك أن تكون منهم» (مسلم).
+الحسن البصري|K|قال رسول الله ﷺ لبلال: «يا بلال، إذا أذنت فترسل في أذانك، وإذا أقمت فاحدر، واجعل بين أذانك وإقامتك قدر ما يفرغ الآكل من أكله، والشارب من شربه، والمعتصر إذا دخل لقضاء حاجته، ولا تقوموا حتى تروني» (من أحاديثه الـ 11 عنه).
+الحسن البصري|أبي بن كعب|«كنا مع رسول الله ﷺ وإنما وجهنا واحد، فلما قبض نظرنا هكذا وهكذا» (ابن ماجه).
+الحسن البصري|أسامة بن زيد|«أفطر الحاجم والمحجوم» (النسائي).
+الحسن البصري|ثوبان|«أفطر الحاجم والمحجوم» (النسائي).
+الحسن البصري|سعد بن عبادة|أن سعدًا أتى النبي ﷺ فقال: أي الصدقة أعجب إليك؟ قال: «الماء» (أبو داود والنسائي).
+الحسن البصري|F|حديثان: في زكاة الفطر، وفي صيام يوم عاشوراء.
+حبيب بن أبي ثابت|زيد بن أرقم|«إني تارك فيكم ما إن تمسكتم به لن تضلوا بعدي أحدهما أعظم من الآخر: كتاب الله حبل ممدود من السماء إلى الأرض، وعترتي أهل بيتي، ولن يتفرقا حتى يردا علي الحوض، فانظروا كيف تخلفوني فيهما» (الترمذي).
+حبيب بن أبي ثابت|أم سلمة|أن النبي ﷺ «كان إذا اطّلى بدأ بعورته فطلاها بالنورة، وسائر جسده أهله» (ابن ماجه).
+حبيب بن أبي ثابت|حكيم بن حزام|حديث في شراء أضحية (الترمذي).
+سعيد بن المسيب|سراقة بن مالك|«خيركم المدافع عن عشيرته ما لم يأثم» (أبو داود).
+سعيد بن المسيب|سعد بن عبادة|أن سعدًا أتى النبي ﷺ فقال: أي الصدقة أعجب إليك؟ قال: «الماء» (أبو داود).
+سعيد بن المسيب|عتاب بن أسيد|أن النبي ﷺ أمر أن يخرص العنب كما يخرص النخل، وتؤخذ زكاته زبيبًا (أبو داود).
+الشعبي|أم سلمة|ما خرج النبي ﷺ من بيتي قط إلا رفع طرفه إلى السماء فقال: «اللهم أعوذ بك أن أضل أو أضل، أو أزل أو أزل، أو أظلم أو أظلم، أو أجهل أو يجهل علي» (الأربعة).
+أبو قلابة|A|«أتاكم رمضان شهر مبارك، فرض الله عز وجل عليكم صيامه، تفتح فيه أبواب السماء، وتغلق فيه أبواب الجحيم، وتغل فيه مردة الشياطين، لله فيه ليلة خير من ألف شهر، من حرم خيرها فقد حرم» (النسائي).
+أبو قلابة|B|«إن من أكمل المؤمنين إيمانًا أحسنهم خلقًا وألطفهم بأهله» (الترمذي والنسائي).
+الزهري|A|«لا ينادي بالصلاة إلا متوضئ» (الترمذي، وقال: والزهري لم يسمع من أبي هريرة).
+الزهري|E|ثلاثة أحاديث عند النسائي: في صلاة الخوف، وفي الرمل بين الصفا والمروة، وثالث.
+حميد بن عبدالرحمن|عبدالرحمن بن عوف|١) «ابتلينا مع رسول الله ﷺ بالضراء فصبرنا، ثم ابتلينا بالسراء بعده فلم نصبر».§٢) «أبو بكر في الجنة، وعمر في الجنة، وعثمان في الجنة، وعلي في الجنة...» (حديث العشرة المبشرين).§٣) «يقال: الصيام في السفر كالإفطار في الحضر».
+أبو إسحاق السبيعي|سليمان بن صرد|«الآن نغزوهم ولا يغزونا، نحن نسير إليهم» (البخاري)، وله عنه حديثان آخران عند النسائي.
+القاسم صاحب أبي أمامة|أبو أمامة الباهلي|١) «إن سياحة أمتي الجهاد في سبيل الله تعالى».§٢) «اسم الله الأعظم الذي إذا دعي به أجاب في سور ثلاث: البقرة وآل عمران وطه».§٣) مرّ النبي ﷺ على رجل نائم في المسجد منبطح على وجهه فضربه برجله وقال: «قم واقعد فإنها نومة جهنمية».
+عطاء بن أبي رباح|زيد بن خالد الجهني|«من فطّر صائمًا كان له مثل أجره غير أنه لا ينقص من أجر الصائم شيئًا» (الترمذي والنسائي وابن ماجه).
+عبدالرحمن بن عبدالله بن مسعود|G|كنا مع رسول الله ﷺ في سفر، فأخذنا فرخي حمرة فجعلت تفرش، فقال: «من فجع هذه بولدها؟ ردوا ولدها إليها»، ورأى قرية نمل قد حرقناها فقال: «إنه لا ينبغي أن يعذب بالنار إلا رب النار» (أبو داود).
+سعيد بن جبير|عبدالله بن مغفل|حديث النهي عن الخذف (مسلم).
+أبو وائل|D|«اللهم اكفني بحلالك عن حرامك، وأغنني بفضلك عمن سواك» (الترمذي).
+عبدالله بن بريدة|B|قلت: يا رسول الله، أرأيت إن علمت أي ليلة ليلة القدر ما أقول فيها؟ قال: «قولي: اللهم إنك عفو تحب العفو فاعف عني» (الترمذي والنسائي وابن ماجه).
+أبو عبدالرحمن السلمي|L|١) «خيركم من تعلم القرآن وعلمه» (البخاري وعامة أصحاب الكتب).§٢) «اثبت حراء، فليس عليك إلا نبي أو صديق أو شهيد» (علقه البخاري، وأخرجه الترمذي والنسائي).
+خالد بن دريك|B|أن أسماء بنت أبي بكر دخلت على رسول الله ﷺ وعليها ثياب رقاق فأعرض عنها وقال: «يا أسماء، إن المرأة إذا بلغت المحيض لم تصلح أن يرى منها إلا هذا وهذا»، وأشار إلى وجهه وكفيه (أبو داود).
+أبو الزناد|H|«الحسد يأكل الحسنات كما تأكل النار الحطب، والصدقة تطفئ الخطيئة كما يطفئ الماء النار، والصلاة نور المؤمن، والصيام جنة من النار» (ابن ماجه).
+عبدالرحمن بن عائذ|D|«وكاء السه العينان، فمن نام فليتوضأ» (أبو داود).
+عبدالرحمن بن عائذ|J|سألت رسول الله ﷺ عما يحل للرجل من امرأته وهي حائض، فقال: «ما فوق الإزار، والتعفف عن ذلك أفضل» (أبو داود).
+ابن سيرين|كعب بن عجرة|ذكر رسول الله ﷺ فتنة فقربها، فمر رجل مقنع رأسه فقال: «هذا يومئذ على الهدى» (ابن ماجه).
+ابن سيرين|B|«أن النبي ﷺ كان لا يصلي في ملاحفنا» (أبو داود).
+ابن المنكدر|A|«وفطركم يوم تفطرون، وأضحاكم يوم تضحون، وكل عرفة موقف، وكل منى منحر، وكل فجاج مكة منحر، وكل جمع موقف» (أبو داود).
+ابن المنكدر|Q|«رباط يوم في سبيل الله أفضل... خير من صيام شهر وقيامه، ومن مات فيه وقي فتنة القبر، ونمي له عمله إلى يوم القيامة» (الترمذي).
+ابن المنكدر|B|«الفطر يوم يفطر الناس، والأضحى يوم يضحي الناس» (الترمذي، وسأل البخاري عن سماعه من عائشة فأثبته).`.split('\n').forEach(l=>{const[n,k,t]=l.split('|');HD[n+'|'+(S[k]||k)]=t.split('§')});
+`أبان بن عثمان|L|5|أثبت مالك والبخاري وأبو حاتم سماعه من أبيه وخالفهم أحمد، وقد صرّح بسماعه منه في صحيح مسلم والمسند. له عنه خمسة أحاديث، أخرج مسلم اثنين.
+إبراهيم بن عبدالله بن حنين|D|2|لم يسمع من علي (المزي والذهبي والسخاوي)، والصواب أن بينهما أباه عبدالله أو غيره. حديثان (النسائي وابن ماجه).
+إبراهيم بن عبدالرحمن بن عوف|C||أثبته أحمد ويعقوب بن شيبة والطبري وهو الأظهر، ونفاه البيهقي. أخرج له البخاري والنسائي عن عمر.
+إبراهيم التيمي|B|1|لم يسمع منها، أدركها وهو صغير. حديثه: أن النبي ﷺ قبّل ولم يتوضأ (أبو داود والنسائي)، وقال أبو داود: مرسل.
+إبراهيم النخعي|C|1|لم يسمع من عمر؛ أخرج له الترمذي حديثًا في قصة فاطمة بنت قيس.
+إبراهيم النخعي|G|3|لم يسمع من ابن مسعود؛ أخرج له أصحاب السنن 3 أحاديث.
+إبراهيم النخعي|B|5|رآها ولم يسمع منها؛ له عنها 5 أحاديث (مسلم وأبو داود والنسائي وابن ماجه)، أورد مسلم منها واحدًا للاعتبار.
+أبو أمامة أسعد بن سهل|C|1|نفاه أبو زرعة، والجمهور على سماعه (أحمد والبخاري ومسلم وأبو حاتم والمزي والذهبي). حديثه: «الله ورسوله مولى من لا مولى له، والخال وارث من لا وارث له».
+أبو الجوزاء|B|2|نفاه ابن عبدالبر والألباني وأثبته الزيلعي، وصرّح أبو حاتم بروايته عنها، والأقرب أنه سمع منها. أخرج له مسلم حديث استفتاح الصلاة بالتكبير.
+أبو الجوزاء|C||لم يسمع من عمر ولا علي ولا ابن مسعود.
+البراء بن ناجية|G|1|قال البخاري: لم يذكر سماعًا، وقال العجلي: من أصحاب عبدالله؛ وقد عاصره وليس بمدلس. حديث «تدور رحى الإسلام لخمس وثلاثين…» (أبو داود).
+بريد بن أبي مريم|أبو موسى الأشعري|1|لم يسمع منه (المزي والذهبي وابن حجر). حديثه في صلاة علي يوم الجمل (ابن ماجه).
+بسر بن سعيد|L|1|أدرك عثمان وقال أبو حاتم: مرسل. حديث «لا يحل دم امرئ مسلم إلا بثلاث» (النسائي).
+بكر بن سوادة|عبدالله بن عمرو|1|نفى النووي سماعه ولا نفي ولا إثبات عند المتقدمين. حديثه أعله الترمذي بالاضطراب.
+بكر المزني|المغيرة بن شعبة|1|نفاه ابن معين وأثبته الدارقطني. حديثه في خطبة المرأة: «انظر إليها فإنه أحرى أن يؤدم بينكما».
+بيان بن بشر|H||نفاه أبو داود وأثبته البخاري، وأخرج حديثه مصرّحًا بالسماع: «بنى النبي ﷺ بامرأة فأرسلني فدعوت رجالًا إلى الطعام».
+ثابت البناني|عبدالله بن مغفل|1|اختلف في سماعه من أبي هريرة وابن عباس وأبي برزة وابن مغفل. ليس له عنهم إلا حديث عن ابن مغفل (النسائي)، وقال أبو حاتم: لا ندري لقيه أم لا.
+جبير بن نفير|M|1|نفاه أبو زرعة والمزي. حديث «سلوا الله العافية» ثابت من طرق أخرى.
+حرام بن سعد|البراء بن عازب|1|نفاه ابن حبان وابن حزم، وصحّح حديثه الشافعي والحاكم. قصة الناقة الضارية: «حفظ الحوائط بالنهار على أهلها».
+الحسن العرني|F|3|لم يسمع منه (أحمد وابن معين والبخاري). ثلاثة أحاديث: رمي الجمرة بعد طلوع الشمس، و«إذا رمى الجمرة فقد حل له كل شيء إلا النساء»، وقصة الجدي.
+أبو ظبيان|D|1|أثبته البخاري ومسلم والدارقطني وابن عبدالبر وهو الأظهر، ونفاه أبو حاتم والذهبي. حديث «رفع القلم عن ثلاثة».
+أبو ظبيان|Q|1|نفاه شعبة والبخاري فيما نقله الترمذي، وأثبته البخاري في التاريخ والكنى. حديث «لا تبغضني فتفارق دينك… تبغض العرب فتبغضني».
+حميد بن عبدالرحمن|C||لم يسمع من عمر على الأظهر.
+خالد بن دريك|E||لم يسمع منه (المنذري والمزي والذهبي).
+خالد بن معدان|J|1|لم يسمع منه وربما كان بينهما اثنان. حديث «من عيّر أخاه بذنب لم يمت حتى يعمله» (الترمذي وضعّفه).
+خالس بن عمرو|A|4|روايته عن علي وأبي هريرة من صحيفة فليست سماعًا. قال ابن حجر: البخاري لا يخرج له إلا مقرونًا.
+أبو صالح السمان|O|3|لم يسمع منه فهو مرسل (البخاري وأبو حاتم وابن عبدالبر وابن حجر). علّق البخاري اثنين ووصلهما النسائي، وتفرد الترمذي بالثالث.
+راشد بن سعد|ثوبان|2|نفاه أحمد وأبو حاتم والحربي، وأثبته البخاري وقد سكنا حمص. حديثه: أمرهم أن يمسحوا على العصائب والتساخين (أبو داود).
+زرارة بن أوفى|عمران بن حصين||الأظهر سماعه، وأخرج الشيخان حديثه عن عمران، وأثبت أبو حاتم سماعه منه ومن أبي هريرة وابن عباس، وأثبت مسلم سماعه من تميم.
+زيد بن أسلم|K||نفاه ابن معين وأثبته ابن حبان، وعلّق البخاري له عنه، وروى مالك في الموطأ عن زيد عن جابر.
+زيد بن أسلم|A||لم يسمع منه، بينهما عطاء بن يسار (ابن معين والترمذي والذهبي وابن حجر).
+زيد بن أسلم|B||لم يسمع منها، بينهما القعقاع بن حكيم.
+سالم بن أبي الجعد|C||كثير الإرسال ووصفه الفسوي بالتدليس. لم يسمع من عمر ولا أبي هريرة ولا عائشة، وبينه وبين علي محمد بن الحنفية، وبينه وبين ثوبان معدان بن أبي طلحة.
+سالم بن عبدالله بن عمر|C||لم يسمع من جده عمر.
+سعد بن إبراهيم|عبدالله بن جعفر|1|نفاه ابن المديني وأحمد نفيًا غير صريح، وأثبته البخاري والحاكم وأخرج الشيخان حديثه وفي البخاري تصريحه. حديث «رأيت النبي ﷺ يأكل الرطب بالقثاء».
+سعيد المقبري|B||نفى أبو حاتم وابن حجر سماعه منها، وقد أدركها بالمدينة وروى عن أبي هريرة.
+سعيد بن مرجانة|I||نفاه أبو حاتم وأبو داود، ومنهم من أثبته.
+سعيد بن أبي هند|P|1|لم يسمع منه. حديث «من لعب بالنرد فقد عصى الله ورسوله» (مالك وأبو داود وابن ماجه).
+سعيد بن أبي هند|A||قال أبو حاتم: لم يسمع منه. حديث «تكون إبل للشياطين وبيوت للشياطين» (أبو داود).
+أبو حازم سلمة بن دينار|E|1|اختلف في سماعه والأغلب أنه منقطع. حديث «القدرية مجوس هذه الأمة…» (أبو داود).
+الأعمش|H|3|لم يسمع من أحد من الصحابة على الأصح، رأى أنسًا بمكة. وهو مدلس وأخذ أحاديث أنس من ضعفاء. حديث «كان إذا أراد حاجة لا يرفع ثوبه حتى يدنو من الأرض» أعلّه البخاري وأبو داود والترمذي بالانقطاع.
+الأعمش|عبدالله بن أبي أوفى|1|لم يسمع منه. حديث «الخوارج كلاب النار» (ابن ماجه).
+شريح بن عبيد|أبو مالك الأشعري|1|مدلس وروايته عنهم منقطعة. حديث «إذا ولج الرجل بيته فليقل: اللهم إني أسألك خير المولج…» (أبو داود).
+أبو وائل|J||اختلف، كان معاذ بالشام وأبو وائل بالكوفة والأكثر على أنه لم يسمع منه.
+أبو وائل|B||الأظهر أنه سمع منها، وليس بمدلس فحديثه محمول على الاتصال.
+طاوس|C||لم يسمع منه وأرسل عنه في دية الجنين. قال الشافعي: طاوس عالم بأمر معاذ وإن لم يلقه.
+أبو تميمة الهجيمي|A|1|قال البخاري: لا يعرف له سماع منه. حديثه «من أتى حائضًا أو امرأة في دبرها أو كاهنًا…» منكر أنكره البخاري وغيره.
+طلحة بن مصرف|H|1|نفاه ابن معين وأبو حاتم، وصححه البخاري ومسلم وصرّح في بعض الطرق. حديث «لولا أن أخاف أن تكون من الصدقة لأكلتها».
+الشعبي|R||لم يسمع منه (شعبة والحاكم وابن الجوزي والنووي وابن التركماني).
+الشعبي|G||لم يسمع منه.
+عبدالله بن بريدة|بريدة بن الحصيب||توقف أحمد والبخاري ولعل مرادهما أنه لم يصرّح بالسماع. أخرج له الشيخان عن أبيه وفي بعضها التصريح بالسماع، وأدرك من حياة أبيه سنين كثيرة.
+عبدالله بن بريدة|B||لم يسمع منها على الأظهر (الدارقطني والبيهقي).
+أبو الزناد|H|1|نفاه أحمد والبخاري وأبو حاتم، وأثبته العجلي والحاكم والعلائي والسخاوي. حديثه في ابن ماجه.
+ابن أبي مليكة|طلحة بن عبيدالله|1|لم يسمع منه. حديث «إن عمرو بن العاص من صالحي قريش» (الترمذي).
+عبدالله بن معبد الزماني|أبو قتادة||نفى البخاري معرفة سماعه ولعله لم يصرّح، وأثبته الخطيب وأخرجه مسلم وابن خزيمة وابن حبان. حديث فضل صوم عرفة وعاشوراء.
+عبدالجبار بن وائل|وائل بن حجر||لم يسمع منه شيئًا وعليه الجميع. قال ابن معين: إنما كان يحدث عن أهل بيته عن أبيه.
+عبدالرحمن بن الأسود|B||نفاه أبو حاتم، وأثبته مسلم والدارقطني والذهبي. يروي عنها مباشرة وعن أبيه عنها.
+عبدالرحمن بن سابط|N||لم يسمع منه.
+عبدالرحمن بن سابط|K||نفاه ابن معين، وأثبته البخاري وابن أبي حاتم وهو الأظهر لثبوت التصريح.
+عبدالرحمن بن شماسة|أبو ذر||الصواب أنه أدركهما وسمع منهما وصرّح بالسماع، وأخرج مسلم عنهما.
+عبدالرحمن بن عبدالله بن كعب|كعب بن مالك||نفاه الذهلي والدارقطني، وأثبته البخاري وصرّح هو بالسماع، وأدرك جده وهو غلام.
+عبدالرحمن بن أبي ليلى|J|5|لم يسمع منه، وله عنه 5 أحاديث في السنن الأربعة.
+عبدة بن أبي لبابة|E||الصواب أنه سمع من ابن عمر.
+عبدة بن أبي لبابة|C|1|الأظهر أنه لم يسمع منه. حديث مسلم: «كان عمر يجهر بهؤلاء الكلمات: سبحانك اللهم وبحمدك…».
+عبيدالله بن عبدالله بن عتبة|G||نفاه المزي والذهبي وابن حجر، وأخرج له مسلم في مقدمة صحيحه موصولًا وأخرجه ابن حبان.
+عروة بن الزبير|الزبير بن العوام||نفاه ابن معين والحاكم والدارقطني، وأثبته البخاري ومسلم والذهبي وهو الأظهر.
+عطاء بن أبي رباح|L||مشهور بالإرسال والتدليس، يأخذ عن كل ضرب. لم يسمع من عثمان ولا أسامة ولا أوس ولا رافع ولا زيد بن خالد ولا عتاب ولا أم سلمة ولا أم كرز.
+عطاء بن يسار|J|2|لم يسمع منه، وله عنه حديثان في السنن.
+عكرمة بن خالد|F|1|نفاه أحمد وقال بينهما سعيد بن جبير، وأثبته النووي.
+عكرمة مولى ابن عباس|B|7|الأظهر أنه سمع منها، وللبخاري والأربعة 7 أحاديث، وثبت تصريحه في سنن البيهقي الكبرى.
+عكرمة مولى ابن عباس|D||لم يسمع منه.
+علقمة بن قيس|C|1|أثبته مسلم والذهبي، وقال أحمد: ينكرون ذلك (الكوفيون أصحابه). حديث «كان رسول الله ﷺ يسمر مع أبي بكر في الأمر من أمر المسلمين وأنا معهما».
+علي بن الحسين|B|2|نفاه أبو داود، وأثبته البخاري وأخرج مسلم حديثين عنها وهو الأظهر.
+علي بن الحسين|D|2|لم يسمع من جده علي؛ له عنه حديثان (الترمذي والنسائي).
+عمر بن عبدالعزيز|عقبة بن عامر|1|لم يسمع منه (ابن ماجه).
+عمر بن عبدالعزيز|خولة بنت حكيم|1|لم يسمع منها (الترمذي).
+عمرو بن دينار|A||لم يسمع منه. أحاديث أبي هريرة من طريقه في الصحاح بواسطة.
+عمرو بن شرحبيل|C|1|نفاه أبو زرعة، وأثبته البخاري ومسلم وأبو حاتم. له عنه حديث واحد (أهل السنن).
+أبو إسحاق السبيعي|جابر بن سمرة||الأغلب أنه سمع منه.
+أبو إسحاق السبيعي|H||لم يسمع منه. وأبو إسحاق موصوف بالتدليس.
+عمرو بن أبي قرة|Q|1|نفاه ابن المديني وقد أدرك سلمان وأبوه من أصحابه. حديث «أيما رجل من أمتي سببته سبة أو لعنته لعنة في غضبي…».
+عمرو بن مرة|F|1|لم يسمع منه؛ قال أبو حاتم وابن حجر: لم يسمع من الصحابة إلا من ابن أبي أوفى (النسائي).
+عون بن عبدالله|G|3|لم يسمع منه وهو عم أبيه. ثلاثة أحاديث، منها «إذا ركع أحدكم فقال سبحان ربي العظيم ثلاثًا فقد تم ركوعه».
+القاسم بن عبدالرحمن بن عبدالله|G||لم يسمع من جده. قال ابن المديني: لم يلق من الصحابة غير جابر بن سمرة ولم يسمع من عمر.
+القاسم صاحب أبي أمامة|D||نفاه أبو زرعة وابن أبي حاتم، وأثبته البخاري في الأوسط.
+القاسم بن محمد|G||لم يسمع منه ولا من زينب بنت جحش.
+القاسم بن محمد|M||لم يسمع من جده، ومرسلاته عنه في موطأ مالك.
+قبيصة بن ذؤيب|عمرو بن العاص|1|لم يسمع منه. حديث «لا تلبسوا علينا» (أبو داود وابن ماجه).
+قتادة بن دعامة|I||لم يسمع منه. قال الترمذي: لا نعرف لقتادة سماعًا من أحد من الصحابة إلا من أنس وأبي الطفيل.
+قتادة بن دعامة|عمران بن حصين|2|لم يسمع منه؛ حديثان (أبو داود والترمذي).
+قدامة بن وبرة|سمرة بن جندب|1|لم يسمع منه، نصّ عليه البخاري. حديث «من ترك الجمعة من غير عذر فليتصدق بدينار».
+القعقاع بن حكيم|B|1|لم يسمع منها. حديث «إذا وطئ الأذى بخفيه فطهورهما التراب»، قال النووي: طرقه كلها ضعيفة.
+قيس بن أبي حازم|عبدالله بن رواحة||حديثه مرسل لأن ابن رواحة قتل بمؤتة.
+قيس بن أبي حازم|M||قال يعقوب بن شيبة: روى قيس عن أبي بكر فمن دونه. وقيس ليس بمدلس وقد ورد المدينة عقب وفاة النبي ﷺ.
+كريب|الفضل بن عباس|1|لم يسمع منه. حديث «بتّ ليلة عند النبي ﷺ لأنظر كيف يصلي…» (أبو داود).
+أبو مجلز|حذيفة|1|لم يسمع منه. حديث «لعن من جلس وسط الحلقة» (أبو داود).
+محمد بن إبراهيم التيمي|H|2|لم يسمع منه سوى حديث واحد. أحد حديثيه في الدعاء على الجراد.
+محمد بن إبراهيم التيمي|قيس بن عمرو|1|لم يسمع منه (الترمذي). حديث «مهلًا يا قيس أصلاتان معًا؟».
+محمد بن ركانة|ركانة|1|لم يسمع من أبيه، وقال ابن حجر: مجهول. حديث «إن فرق ما بيننا وبين المشركين العمائم على القلانس».
+محمد الباقر|D|1|لم يسمع من جده. حديث العقيقة عن الحسن: قال الترمذي: إسناده ليس بمتصل.
+محمد بن علي بن عبدالله|F|3|لم يسمع من جده. ثلاثة أحاديث: وقّت لأهل المشرق العقيق، و«من لزم الاستغفار…»، وقيامه مع النبي ﷺ في صلاة الليل.
+محمد بن كعب القرظي|G|1|لم يسمع منه (الترمذي).
+محمد بن كعب القرظي|العباس|1|لم يسمع منه (ابن ماجه).
+محمد بن مالك|البراء بن عازب|1|لم يسمع منه (ابن حبان). حديث «يا إخوان لمثل هذا فأعدوا».
+أبو الزبير|F||لم يسمع منه ولا من عائشة. حديث «أخّر طواف الزيارة إلى الليل».
+أبو الزبير|E||الأظهر سماعه، وقد صرّح بالسماع عند مسلم في مواضع. نفاه ابن معين.
+الزهري|R|1|لم يسمع منه. للنسائي عنه حديث البيعة.
+الزهري|رافع بن خديج|1|لم يسمع منه. للنسائي عنه حديث النهي عن كراء الأرض.
+الزهري|عبدالرحمن بن أزهر|2|لم يسمع منه؛ حديثان (أبو داود والنسائي).
+ابن المنكدر|B||أثبته البخاري وقال سمعتها في حديثه، ونفاه أبو زرعة وابن حجر.
+مرة الطيب|M|4|لم يسمع منه. أربعة أحاديث كلها من رواية فرقد السبخي وهو ضعيف.
+أبو الضحى|D|1|لم يسمع منه. حديث «رفع القلم عن ثلاثة» (أبو داود).
+أبو الضحى|G||روايته عنه منقطعة (ابن حجر).
+مسلم بن أبي مريم|I|1|لم يسمع منه. حديث «من أخرج أذى من المسجد بنى الله له بيتًا في الجنة» (ابن ماجه).
+مصعب بن ثابت|عبدالله بن الزبير|3|لم يسمع من جده؛ ثلاثة أحاديث (أبو داود وابن ماجه).
+المطلب بن حنطب|H||قال ابن سعد: لا يحتج بحديثه لأنه يرسل كثيرًا ولا لقي له، وقال أبو حاتم: عامة حديثه مراسيل.
+معاوية بن قرة|E|1|لم يسمع منه. حديث في الوضوء (ابن ماجه).
+مكحول|A||لم يسمع منه. قال الحاكم: أكثر روايته عن الصحابة حوالة.
+مكحول|H|1|اختلف في سماعه منه. حديث «من قال حين يصبح أو يمسي: اللهم إني أصبحت أشهدك…» (أبو داود).
+مكحول|واثلة بن الأسقع|1|اختلف في سماعه منه. حديث «لا تظهر الشماتة لأخيك فيرحمه الله ويبتليك» (الترمذي).
+ميمون بن أبي شبيب|J|2|لم يسمع منه؛ حديثان (الترمذي والنسائي).
+ميمون بن أبي شبيب|B|1|لم يسمع منها. حديث «أنزلوا الناس منازلهم» (أبو داود).
+ميمون بن مهران|C|1|لم يسمع منه. حديث «إذا دخلت على مريض فمره أن يدعو لك فإن دعاءه كدعاء الملائكة» (ابن ماجه).
+نافع مولى ابن عمر|C||لم يسمع منه، وله عنه آثار في الموطأ وسنن أبي داود والنسائي.
+نافع مولى ابن عمر|B||قال أبو حاتم: روايته عن عائشة وحفصة مرسلة. وقال الدارقطني: لا يصح له سماع من أم سلمة.
+يحيى بن أبي كثير|H||لم يسمع منه، رآه في المسجد الحرام.
+يحيى بن يعمر|B|2|لم يسمع منها (ابن معين وأبو داود). أخرج البخاري حديثه في الطاعون عنها.
+يزيد بن رومان|A|1|لم يسمع منه. حديث «لسقط أقدمه بين يدي أحب إلي من فارس أخلفه خلفي» (ابن ماجه).
+أبو نجيح|N|1|لم يسمع منه (النسائي الكبرى).
+يعقوب بن سلمة|A|1|لم يسمع منه ولا من أبيه. حديث «لا صلاة لمن لا وضوء له…» (أبو داود وابن ماجه).
+أبو إدريس الخولاني|C||لم يسمع منه. للترمذي حديث وللنسائي آخر.
+أبو إدريس الخولاني|J||قال أبو زرعة: لم يسمع منه.
+أبو بكر بن محمد بن عمرو بن حزم|عمرو بن حزم|1|لم يسمع من جده، وفي صحيفته المشهورة خلاف مشهور. حديث «عرضت النهشة من الحية على رسول الله ﷺ فأمر بها».
+أبو زرعة بن عمرو بن جرير|C|1|لم يسمع منه. حديث «إن من عباد الله لأناسًا ما هم بأنبياء ولا شهداء…» (أبو داود).
+أبو سلمة بن عبدالرحمن|عبدالرحمن بن عوف||لم يسمع من أبيه عند أكثر الأئمة، وله عنه ثلاثة أحاديث (أهل السنن الأربع).
+أبو مرزوق التجيبي|فضالة بن عبيد|1|لم يسمع منه، بينهما حنش الصنعاني. حديث «أجل ولكني قئت» (ابن ماجه).
+فاطمة بنت الحسين|فاطمة بنت رسول الله|1|لم تدرك جدتها. حديث دعاء دخول المسجد (الترمذي وابن ماجه).`.split('\n').forEach(l=>{const[n,k,c,...t]=l.split('|');const key=n+'|'+(S[k]||k);if(!DT[key])DT[key]={c,t:t.join('|')}});
+const RJ={};`أبان بن عثمان|L|+
+إبراهيم بن عبدالرحمن بن عوف|C|+
+أبو أمامة أسعد بن سهل|C|+
+أبو الجوزاء|B|+
+البراء بن ناجية|G|+
+بشير بن نهيك|A|+
+بيان بن بشر|H|+
+أبو ظبيان|D|+
+أبو ظبيان|Q|+
+حميد بن عبدالرحمن|عبدالرحمن بن عوف|+
+زرارة بن أوفى|تميم الداري|+
+زرارة بن أوفى|عبدالله بن سلام|+
+زرارة بن أوفى|F|+
+زرارة بن أوفى|عمران بن حصين|+
+سعد بن إبراهيم|عبدالله بن جعفر|+
+أبو حازم سلمة بن دينار|E|-
+سليمان بن بريدة|بريدة بن الحصيب|+
+أبو وائل|J|-
+طلحة بن مصرف|H|+
+عبدالله بن بريدة|بريدة بن الحصيب|+
+أبو عبدالرحمن السلمي|D|+
+أبو عبدالرحمن السلمي|G|+
+عبدالله بن معبد الزماني|أبو قتادة|+
+عبدالرحمن بن الأسود|B|+
+عبدالرحمن بن سابط|K|+
+عبدالرحمن بن شماسة|أبو ذر|+
+عبدالرحمن بن شماسة|B|+
+عبدالرحمن بن عبدالله بن كعب|كعب بن مالك|+
+عبدالرحمن بن عبدالله بن مسعود|G|+
+عبدالرحمن بن أبي ليلى|C|-
+عروة بن الزبير|الزبير بن العوام|+
+عكرمة مولى ابن عباس|B|+
+علي بن الحسين|B|+
+أبو إسحاق السبيعي|جابر بن سمرة|+`.split('\n').forEach(l=>{const[n,k,m]=l.split('|');RJ[n+'|'+(S[k]||k)]=m});
+const SEC=`إبراهيم التيمي|الخامسة|كوفي|«أن النبي ﷺ صلب عقبة بن أبي معيط إلى شجرة…»§«أن النبي ﷺ ورّث الجدة السدس طعمة»
+إبراهيم النخعي|الخامسة|كوفي|«أن النبي ﷺ أخذ من جهة القبلة ولم يسل سلًّا»§ابنة حمزة: أعطاها النبي ﷺ النصف
+أيوب السختياني|الخامسة|بصري|«استعينوا على شدة الحر بالحجامة»
+جبير بن نفير|الثانية|حمصي|«إنكم لن ترجعوا إلى الله بشيء أفضل مما خرج منه» (يعني كلامه)
+الحسن البصري|الثالثة|بصري|«من ملك ذا رحم محرم فهو حر»§«إن الله تجاوز لكم عن ثلاث: عن الجبهة والنخة والكسعة»§قصة العجوز: «إن الجنة لا يدخلها عجوز»§«نهى أن يشاب لبن للبيع»§«العدة عطية»
+الحكم بن عتيبة|الخامسة|كوفي|أن النبي ﷺ أسهم لجعفر وأصحابه وقد قدموا بعد خيبر
+خالد بن معدان|الثالثة|حمصي|«فضّلت سورة الحج على القرآن بسجدتين»
+ذكوان أبو صالح السمان|الثالثة|مدني|«كان يقال: إن الرجل إذا أخرج الحصى من المسجد يناشده»
+ربيعة الرأي|الخامسة|مدني|الاضطجاع في الشمس: «إنها تورث الكسل وتثير الداء الدفين»
+أبو العالية الرياحي|الثانية|بصري|النهي عن لعن الريح§قصة الرجل الضرير الذي تردّى في حفرة في المسجد فضحكوا، فأمرهم النبي ﷺ أن يعيدوا الوضوء والصلاة
+زيد بن أسلم|الثالثة|مدني|«علم لا ينفع وجهل لا يضر»§«إذا سلّم واحد من القوم أجزأ عنهم»
+سعيد بن جبير|الثالثة|كوفي مكي|«كان رسول الله ﷺ يجهر ببسم الله الرحمن الرحيم بمكة»
+سعيد بن المسيب|الثانية|مدني|النهي عن بيع اللحم بالحيوان§«من ضرب أباه فاقتلوه»§«لا يخرج أحد بعد النداء إلا منافق»§«لا يغلق الرهن»§قراءته ﷺ «إذا زلزلت» في الركعتين§أنه افتتح بعض خيبر عنوة§النهي عن بيع الحي بالميت
+سليمان بن موسى الأشدق|الخامسة|دمشقي|«دية كل ذي عهد في عهده ألف دينار»§«لا تأكلوا اللحم النيء حتى نحلّ له ثلاثًا أو تمسه النار»
+سليمان بن يسار|الثالثة|مدني|النهي عن صيام أيام منى
+شهر بن حوشب|الثالثة|شامي|«إن فضل كلام الله على سائر الكلام كفضل الله على سائر خلقه»
+صالح بن أبي مريم أبو الخليل|السادسة|بصري|أمره بقطع المراجيح
+صفوان بن سليم|الرابعة|مدني|قوله لأم أيمن: «آمين، جعلك الله بخير»
+الضحاك بن مزاحم|الخامسة|خراسان|النهي عن الخروج يوم العيد بالسلاح
+طاوس|الثالثة|يماني مكي|وضع اليد اليمنى على اليسرى على صدره في الصلاة§«الرهن بما فيه»§«لا زمام في الإسلام ولا خزام»
+الشعبي|الثالثة|كوفي|كنس البقيع للنبي ﷺ يوم فطر وأضحى§«خير دوائكم السعوط واللدود والمشي والحجامة والعلق»§«إذا أتاكم كريم قوم فأكرموه»
+عبدالله بن أبي بكر بن حزم|الخامسة|مدني|أن النبي ﷺ زوّج عمارة بنت حمزة سلمة بن أبي سلمة فماتا ولم يدركا فتوارثا
+أبو قلابة|الثالثة|بصري|قصة قوم أثنوا على صاحب لهم خيرًا: «فمن كان يكفيه صنعته؟… فكلكم خير منه»
+عبدالرحمن بن سابط|الثالثة|مكي|سؤال رجل: يا رسول الله هل في الجنة من خيل؟
+عبدالرحمن بن أبي ليلى|الثانية|مدني كوفي|«كان إذا ركع لو صُبّ كوز ماء على ظهره لاستنقع عليه»
+عبيدالله بن عبدالله بن عتبة|الثالثة|مدني|كان ﷺ إذا قام إلى الصلاة يعجبه الثياب النقية والريح الطيبة
+عروة بن رويم|الخامسة|شامي|«أول ما نهاني ربي عنه بعد عبادة الأوثان شرب الخمر وملاحاة الرجال»
+عروة بن الزبير|الثالثة|مدني|قضى في حريم النخلة طول عسيبها§«إذا أحدث أحدكم في صلاته فليأخذ بأنفه ثم لينصرف»§«أنكحوا النساء فإنهن يأتينكم بالمال»§«من أحيا أرضًا ميتة فهي له وليس لعرق ظالم حق»
+عطاء بن أبي رباح|الثالثة|مكي|«الرهن بما فيه»§المرأة التي تشكو زوجها: «أتردين عليه حديقته؟»§«إذا شربتم فاشربوا مصًّا وإذا استكتم فاستاكوا عرضًا»
+عطاء بن يسار|الثانية|مدني|ركوبه ﷺ إلى قباء يستخير في ميراث العمة والخالة فنزل: لا ميراث لهما
+عكرمة مولى ابن عباس|الثالثة|—|أن النبي ﷺ غيّر ثوبيه بالتنعيم
+علي بن الحسين زين العابدين|الثالثة|—|«من حسن إسلام المرء تركه ما لا يعنيه»
+عمر بن عبدالعزيز|الرابعة|مدني دمشقي|مرّ ﷺ على كتاب في الأرض فقال: «لعن الله من فعل هذا، لا تضعوا اسم الله إلا في موضعه»
+عمرو بن شعيب|الخامسة|حجازي|«أعمم، ففضل ما بين العموم والخصوص كفضل ما بين السماء والأرض»§قيمة الدية على عهد رسول الله ﷺ ثمانمائة دينار
+عوف الأعرابي|السادسة|بصري|«بلغني أن رسول الله ﷺ قال: استعينوا على شدة الحر بالحجامة»
+القاسم بن عبدالرحمن صاحب أبي أمامة|الثالثة|شامي|وصيته ﷺ لرجل بعشر منها: «ولا تقطع شجرة بثمر، ولا تقتل بهيمة ليس لك بها حاجة، واتق أذى المؤمن»
+قتادة بن دعامة|الرابعة|بصري|«افصلوا بين شعبان ورمضان»§قصة حفصة وفتاة النبي ﷺ
+كعب الأحبار|الثانية|يماني سكن الشام|«إن الجارية إذا حاضت لم يصلح أن يرى منها إلا وجهها ويداها»§«اقرؤوا سورة هود يوم الجمعة»
+مجاهد|الثالثة|مكي|«ليست تلك بمعرفة»§كراهته ﷺ من الشاة سبعًا: المثانة والمرارة والغدة والذكر والحياء والأنثيين§النهي عن التحريش بين البهائم
+محمد بن إسحاق|الخامسة|مدني ونزل العراق|سيره ﷺ إلى الطائف وأمره بهدم حصن مالك بن عوف وقطع الأعناب
+ابن سيرين|الثالثة|بصري|«وقّت لأهل مكة التنعيم»§قدوم ابن مسعود من الحبشة وإشارته ﷺ بالرد في الصلاة§جعل بلال إصبعيه في أذنيه في الأذان
+محمد بن عبدالرحمن بن ثوبان|الثالثة|مدني|«هما فجران: فأما الذي كأنه ذنب السرحان فإنه لا يحل شيئًا ولا يحرمه…»
+محمد الباقر|الرابعة|مدني|وزنت فاطمة شعر الحسن والحسين وزينب وأم كلثوم وتصدّقت بوزنه فضة
+الزهري|الرابعة|مدني|«كل كلام لا يبدأ فيه بذكر الله فهو أبتر»§أسهم النبي ﷺ لقوم من اليهود قاتلوا معه§«من احتجم يوم الأربعاء أو يوم السبت فأصابه وضح فلا يلومن إلا نفسه»§قضى ﷺ في الذكر الدية§«عليك بأول سوم فإن الأرباح مع السماح»§دعاء الباكورة من الفاكهة
+مسروق|الثانية|كوفي|«السعوط أحب إلي من النقح، واللدود أحب إلي من العلاق، والكمّاد أحب إلي من الكي»
+المطلب بن عبدالله بن حنطب|الرابعة|مدني|«لا يفرق بين الرجل وبين والده»
+مكحول|الخامسة|شامي|«ما استحل به الفرج من نحل أو هبة فهو من الصداق»§«حجة لمن لم يحج خير من عشر غزوات»§«لا تشتروا الصدقات حتى تعقل وتوسم»§المرأة تموت مع الرجال ليس معهم امرأة: يتيممان ويدفنان
+أبو سلمة بن عبدالرحمن|الثالثة|مدني|«كان يغسل وجهه بيمينه»§«لينظر أحدكم ما الذي يتمنى فإنه لا يدري ما يكتب له من أمنيته»§«لا تعجلوا بالبلية قبل نزولها»
+أبو المليح بن أسامة الهذلي|الثالثة|بصري|انقطع شسع نعله ﷺ فمشى في نعل واحدة حتى أصلح الأخرى`.split('\n').map(l=>{const[n,t,b,h]=l.split('|');return{n,t,b,h:h.split('§')}});
+let tab=1;const $=i=>document.getElementById(i),q=$('q'),f=$('f'),out=$('out');
+const chip=(t,m,n,sa)=>{const k=n+'|'+sa,d=DT[k],rj=m=='?'&&RJ[k];return`<span class="chip c-${C[m]}" data-n="${n}" data-s="${sa}" data-m="${m}">${t}${d||HD[k]?`<em>${d&&d.c?hc(+d.c):'ⓘ'}</em>`:''}${rj?`<i class="rj ${rj=='+'?'g':'r'}">${rj=='+'?'الراجح: سمع':'الراجح: لم يسمع'}</i>`:''}</span>`};
+const grp=(k,a,title)=>a.length?`<div class="bx bx-${C[k]}"><div class="lb">${title||L[k]}<small>${a.length}</small></div><div>${a.join('')}</div></div>`:'';
+const bar=e=>'<div class="bar">'+['+','?','-'].map(k=>{const c=e.filter(x=>x.m==k).length;return c?`<i class="b-${C[k]}" style="flex:${c}"></i>`:''}).join('')+'</div>';
+const MT={};`الحسن البصري|الثالثة|بصري
+أبان بن عثمان|الثالثة|مدني
+إبراهيم بن عبدالله بن حنين|الثالثة|مدني
+إبراهيم بن عبدالرحمن بن عوف|الثانية|مدني
+إبراهيم التيمي|الخامسة|كوفي
+إبراهيم النخعي|الخامسة|كوفي
+أبو الجوزاء|الثالثة|بصري
+البراء بن ناجية|الثالثة|كوفي
+بريد بن أبي مريم|الرابعة|بصري
+بسر بن سعيد|الثانية|مدني
+بشير بن نهيك|الثالثة|بصري
+بكر بن سوادة|الثالثة|مصري
+بكر المزني|الثالثة|بصري
+بيان بن بشر|الخامسة|كوفي
+ثابت البناني|الرابعة|بصري
+جبير بن نفير|الثانية|شامي
+حبيب بن أبي ثابت|الثالثة|كوفي
+حرام بن سعد|الثالثة|مدني
+الحسن العرني|الرابعة|كوفي
+أبو ظبيان|الثانية|كوفي
+حميد بن عبدالرحمن|الثانية|مدني
+خالد بن دريك|الثالثة|شامي
+خالد بن معدان|الثالثة|شامي
+خالس بن عمرو|الثانية|بصري
+أبو صالح السمان|الثالثة|مدني
+راشد بن سعد|الثالثة|شامي
+زرارة بن أوفى|الثالثة|بصري
+زيد بن أسلم|الثالثة|مدني
+سالم بن أبي الجعد|الثالثة|كوفي
+سالم بن عبدالله بن عمر|الثالثة|مدني
+سعد بن إبراهيم|الخامسة|مدني
+سعيد بن جبير|الثالثة|كوفي
+سعيد المقبري|الثالثة|مدني
+أبو البختري|الثالثة|كوفي
+سعيد بن مرجانة|الثالثة|حجازي
+سعيد بن المسيب|الثانية|مدني
+أبو حازم سلمة بن دينار|الخامسة|مدني
+سليمان بن بريدة|الثالثة|مروزي
+الأعمش|الخامسة|كوفي
+سليمان بن يسار|الثالثة|مدني
+شريح بن عبيد|الثالثة|شامي
+أبو وائل|الثانية|كوفي
+طاوس|الثالثة|مكي
+أبو تميمة الهجيمي|الثالثة|بصري
+طلحة بن مصرف|الخامسة|كوفي
+الشعبي|الثالثة|كوفي
+عبدالله بن بريدة|الثالثة|مروزي
+أبو عبدالرحمن السلمي|الثانية|كوفي
+أبو الزناد|الخامسة|مدني
+أبو قلابة|الثالثة|بصري
+ابن أبي مليكة|الثالثة|مكي
+عبدالله بن معبد الزماني|الرابعة|بصري
+عبدالجبار بن وائل|الثالثة|كوفي
+عبدالرحمن بن الأسود|الثالثة|كوفي
+عبدالرحمن بن سابط|الثالثة|مكي
+عبدالرحمن بن شماسة|الثالثة|مصري
+عبدالرحمن بن عائذ|الثالثة|شامي
+عبدالرحمن بن عبدالله بن كعب|الثالثة|مدني
+عبدالرحمن بن عبدالله بن مسعود|الثانية|كوفي
+عبدالرحمن بن أبي ليلى|الثانية|مدني
+عبدة بن أبي لبابة|الرابعة|شامي
+عبيدالله بن عبدالله بن عتبة|الثالثة|مدني
+عراك بن مالك|الثالثة|مدني
+عروة بن الزبير|الثالثة|مدني
+عطاء بن أبي رباح|الثالثة|مكي
+عطاء بن يسار|الثانية|مدني
+عكرمة بن خالد|الثالثة|مكي
+عكرمة مولى ابن عباس|الثالثة|مدني
+علقمة بن قيس|الثانية|كوفي
+علي بن الحسين|الثالثة|مدني
+عمر بن عبدالعزيز|الرابعة|مدني
+عمرو بن دينار|الرابعة|مكي
+عمرو بن شرحبيل|الثانية|كوفي
+أبو إسحاق السبيعي|الثالثة|كوفي
+عمرو بن أبي قرة|الثانية|كوفي
+عمرو بن مرة|الخامسة|كوفي
+عون بن عبدالله|الرابعة|كوفي
+القاسم بن عبدالرحمن بن عبدالله|الرابعة|كوفي
+القاسم صاحب أبي أمامة|الثالثة|شامي
+القاسم بن محمد|الثالثة|مدني
+قبيصة بن ذؤيب|الأولى|مدني
+قتادة بن دعامة|الرابعة|بصري
+قدامة بن وبرة|الرابعة|بصري
+القعقاع بن حكيم|الرابعة|مدني
+قيس بن أبي حازم|الثانية|كوفي
+كريب|—|مدني
+أبو مجلز|الثالثة|بصري
+محمد بن إبراهيم التيمي|الرابعة|مدني
+ابن سيرين|الثالثة|بصري
+محمد الباقر|الرابعة|مدني
+محمد بن علي بن عبدالله|السادسة|مدني
+محمد بن كعب القرظي|الثالثة|مدني
+محمد بن مالك|الرابعة|—
+أبو الزبير|الرابعة|مكي
+الزهري|الرابعة|مدني
+ابن المنكدر|الثالثة|مدني
+مجاهد|الثالثة|مكي
+مرة الطيب|الثانية|كوفي
+أبو الضحى|الرابعة|كوفي
+مسلم بن أبي مريم|الرابعة|مدني
+مصعب بن ثابت|السابعة|مدني
+المطلب بن حنطب|الرابعة|مدني
+معاوية بن قرة|الثالثة|بصري
+مكحول|الخامسة|شامي
+ميمون بن أبي شبيب|الثالثة|كوفي
+ميمون بن مهران|الرابعة|كوفي
+نافع مولى ابن عمر|الثالثة|مدني
+يحيى بن أبي كثير|الخامسة|بصري
+يحيى بن يعمر|الثالثة|بصري
+يزيد بن رومان|الخامسة|مدني
+أبو نجيح|الثالثة|مكي
+يعقوب بن سلمة|السابعة|مدني
+أبو إدريس الخولاني|الثانية|شامي
+أبو بكر بن محمد بن عمرو بن حزم|الخامسة|مدني
+أبو سلمة بن عبدالرحمن|الثالثة|مدني
+أبو مرزوق التجيبي|الخامسة|مصري
+فاطمة بنت الحسين|الرابعة|مدني`.split('\n').forEach(l=>{const[n,t,b]=l.split('|');MT[n]={t,b}});
+MT['أبو أمامة أسعد بن سهل']={t:'—',b:'مدني'};MT['سعيد بن أبي هند']={t:'الثالثة',b:'—'};MT['محمد بن ركانة']={t:'الثالثة',b:'—'};MT['أبو زرعة بن عمرو بن جرير']={t:'الثالثة',b:'—'};
+[['الحسن البصري','لم يسمع منه عند أهل العلم. وله عن كل واحد من هؤلاء عند أصحاب السنن الأربع أو بعضها حديث أو حديثان أو ثلاثة.'],['سالم بن أبي الجعد','لم يسمع منه، وله عنه في السنن الأربع أو بعضها. وسالم كثير الإرسال عن الصحابة ووصفه الفسوي بالتدليس.'],['سعيد بن جبير','لم يسمع منه، وله عنه في السنن.'],['شريح بن عبيد','لم يسمع منه، وأخرجوا له عنه. وشريح مدلس وروايته عنهم منقطعة.']].forEach(([n,t])=>P.find(p=>p.n==n).e.forEach(x=>{if(x.m=='-'&&!DT[n+'|'+x.s])DT[n+'|'+x.s]={c:'',t}}));
+const nz=s=>s.replace(/[\u064B-\u0652\u0640]/g,'').replace(/[أإآٱ]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه').replace(/ؤ/g,'و').replace(/ئ/g,'ي').replace(/عبد\s+/g,'عبد').replace(/(^|\s)ابي(?=\s|$)/g,'$1ابو').replace(/\s+/g,' ').trim();
+P.forEach(p=>{p.k=nz(p.n);p.e.forEach(x=>x.k=nz(x.s))});SEC.forEach(x=>x.k=nz(x.n));
+const hc=c=>c==1?'حديث':c==2?'حديثان':c<=10?c+' أحاديث':c+' حديثًا';
+const ORD=['الأولى','الثانية','الثالثة','الرابعة','الخامسة','السادسة','السابعة'];
+const bm=(b,s)=>s=='شامي'?/شامي|حمصي|دمشقي/.test(b||''):(b||'').includes(s);
+const ft=$('ft'),fb=$('fb');
+const okM=(t,b)=>(!ft.value||t==ft.value)&&(!fb.value||bm(b,fb.value));
+const meta=(t,b)=>t||b?`<div class="meta">${t&&t!='—'?`<span>الطبقة: ${t}</span>`:''}${b&&b!='—'?`<span>البلد: ${b}</span>`:''}</div>`:'';
+const bi=(arr,go,cls)=>{const mx=arr.length?arr[0][1]:1;return arr.map(([k,c])=>`<div class="bi" data-v="${k}" data-go="${go}"><span class="bn">${k}</span><span class="bt2"><i class="${cls}" style="width:${Math.max(4,c/mx*100)}%"></i></span><b>${c}</b></div>`).join('')};
+const topN=(o,n)=>Object.entries(o).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0],'ar')).slice(0,n);
+function stats(){const T={'+':{},'-':{},'?':{}},N={},TT={},BB={};let tot=0;const all={'+':0,'-':0,'?':0};
+for(const p of P){const mt=MT[p.n]||{};if(mt.t&&mt.t!='—')TT[mt.t]=(TT[mt.t]||0)+1;if(mt.b&&mt.b!='—')BB[mt.b]=(BB[mt.b]||0)+1;
+for(const x of p.e){tot++;all[x.m]++;T[x.m][x.s]=(T[x.m][x.s]||0)+1;if(x.m=='-')N[p.n]=(N[p.n]||0)+1}}
+const pc=c=>Math.round(c/tot*100);
+const sec=(t,b)=>`<div class="card"><h3>${t}</h3>${b}</div>`;
+return `<div class="card"><h3>ملخّص</h3><div class="sm"><div class="s g"><b>${all['+']}</b>سمع<small>${pc(all['+'])}٪</small></div><div class="s y"><b>${all['?']}</b>مختلف فيه<small>${pc(all['?'])}٪</small></div><div class="s r"><b>${all['-']}</b>لم يسمع<small>${pc(all['-'])}٪</small></div></div><div class="cnt">${P.length} راوٍ و${tot} حالة سماع في القسم الثاني (الإرسال الخفي)</div></div>`
++sec('أكثر الصحابة الذين نُفي سماع الرواة منهم',bi(topN(T['-'],10),2,'b-r'))
++sec('أكثر الصحابة الذين اختُلف في سماعهم منهم',bi(topN(T['?'],10),2,'b-y'))
++sec('أكثر الصحابة الذين ثبت سماع الرواة منهم',bi(topN(T['+'],10),2,'b-g'))
++sec('أكثر الرواة نفيًا للسماع (عدد الشيوخ الذين لم يسمع منهم)',bi(topN(N,10),1,'b-r'))
++sec('توزيع الرواة بحسب الطبقة',bi(ORD.filter(t=>TT[t]).map(t=>[t,TT[t]]),1,'b-a'))
++sec('توزيع الرواة بحسب البلد',bi(topN(BB,8),1,'b-a'))}
+function r0(){const v=nz(q.value),tk=v?v.split(' '):[],m=f.value;let h='';
+const hit=t=>tk.every(w=>t.includes(w));
+$('fs').style.display=tab>=3?'none':'';$('fr').style.display=tab>=4?'none':'';
+if(tab==5){TJ.forEach(e=>{if(!e.k)e.k=nz(e[0]+' '+e[3])});const L2=TJ.map((e,i)=>[e,i]).filter(([e])=>!tk.length||hit(e.k));let o='',cur=-1;
+for(const[e,i]of L2){if(e[1]!=cur){cur=e[1];o+=`<div class="tgrp">الطبقة ${TJN[cur]}</div>`}const pv=e[3].split('،').slice(1).join('،').slice(0,110);o+=`<div class="tri" data-i="${i}"><b>${e[0]}</b><span>${pv}</span></div>`}
+out.innerHTML=`<div class="cnt">${L2.length} ترجمة من ملف «ملخص رواة السنة»</div>`+o;return}
+if(tab==4){out.innerHTML=stats();return}
+if(tab==3){const a=SEC.filter(x=>okM(x.t,x.b)&&(!v||hit(x.k+' '+x.h.map(nz).join(' '))));
+out.innerHTML=`<div class="cnt">${a.length} راوٍ من المراسيل الظاهرة (القسم الأول من الملف)</div>`+a.map((x,i)=>`<div class="card"><h3><span class="num">${i+1}</span>${nmL(x.n)}${tjb(x.n)}</h3>${meta(x.t,x.b)}<div class="ht">مراسيله المرفوعة</div>`+x.h.map(t=>`<div class="hi">${t}</div>`).join('')+'</div>').join('');return}
+if(tab==1){let n=0;for(const p of P){const mt=MT[p.n]||{};if(!okM(mt.t,mt.b))continue;if(m&&!p.e.some(x=>x.m==m))continue;if(v&&!hit(p.k+' '+p.e.map(x=>x.k).join(' ')))continue;n++;
+h+=`<div class="card"><h3><span class="num">${p.i}</span>${nmL(p.n)}${tjb(p.n)}<button class="cp">نسخ</button></h3>${meta(mt.t,mt.b)}${bar(p.e)}`+['+','?','-'].map(k=>grp(k,p.e.filter(x=>x.m==k).map(x=>chip(x.s,k,p.n,x.s)))).join('')+'</div>'}
+out.innerHTML=`<div class="cnt">${n} راوٍ</div>`+h}
+else{const M={};for(const p of P){const mt=MT[p.n]||{};if(!okM(mt.t,mt.b))continue;for(const x of p.e){(M[x.s]??={'+':[],'-':[],'?':[]})[x.m].push(p.n)}}
+const tot=o=>o['+'].length+o['-'].length+o['?'].length;
+let ks=Object.keys(M).filter(k=>(!v||hit(nz(k)))&&(!m||M[k][m].length)).sort((a,b)=>tot(M[b])-tot(M[a]));
+h=`<div class="cnt">${ks.length} صحابي</div>`;
+for(const k of ks){const e=['+','?','-'].flatMap(s=>M[k][s].map(()=>({m:s})));
+h+=`<div class="card"><h3>${nmL(k)}${tjb(k)}<button class="cp">نسخ</button></h3>${bar(e)}`+[['+','من سمع منه'],['?','من اختُلف في سماعه منه'],['-','من لم يسمع منه']].map(([s,t])=>grp(s,M[k][s].map(n=>chip(n,s,n,k)),t)).join('')+'</div>'}
+out.innerHTML=h}}
+const nmL=n=>{const i=window.TM&&TM[n]!==undefined?TM[n]:-1;return i<0?n:`<a class="nm" data-tj="${i}">${n}</a>`};
+const tjv=n=>window.TM&&TM[n]!==undefined?TM[n]:-1;
+const tjb=n=>{const i=tjv(n);return i<0?'':`<button class="tjb" data-tj="${i}">ترجمة</button>`};
+const tjRow=(n,s)=>{const a=tjv(n),b=tjv(s);return a<0&&b<0?'':'<div class="bt">'+(a>=0?`<button data-tj="${a}">ترجمة الراوي</button>`:'')+(b>=0?`<button data-tj="${b}">ترجمة الصحابي</button>`:'')+'</div>'};
+let TN=null,TMR=null,PNS=null,SAS=null,SCS=null;
+function onTJ(){TN={};TJ.forEach((e,i)=>{const k=nz(e[0]);if(!(k in TN))TN[k]=i});TMR={};for(const n in TM)(TMR[TM[n]]??=[]).push(n);PNS=new Set(P.map(p=>p.n));SAS=new Set(P.flatMap(p=>p.e.map(x=>x.s)));SCS=new Set(SEC.map(x=>x.n));if(typeof tab!='undefined')r()}
+function openTj(i){const e=TJ[i];if(!e)return;const T=TJN[e[1]];
+const rw=(e[4]||'').split(/\s*[٠-٩]+\/\s*/).map(x=>x.trim().replace(/\.$/,'')).filter(Boolean);
+const chips=rw.map(x=>{const j=TN?TN[nz(x.replace(/\(.*$/,'').trim())]:undefined;return j!==undefined?`<span class="rw lk" data-tj="${j}">${x}</span>`:`<span class="rw">${x}</span>`}).join('');
+const nms=(TMR&&TMR[i])||[];let go=0,nm='';
+for(const n of nms){if(PNS&&PNS.has(n)){go=1;nm=n;break}}
+if(!go)for(const n of nms){if(SAS&&SAS.has(n)){go=2;nm=n;break}}
+if(!go)for(const n of nms){if(SCS&&SCS.has(n)){go=3;nm=n;break}}
+shc.innerHTML=`<h2>${e[0]}</h2><div class="meta"><span>الطبقة: ${T}</span><span>رقمه في الملف: ${e[2]}</span></div><div class="ht">الترجمة</div><div class="tx">${e[3]}</div>${rw.length?`<div class="ht">الرواة عنه</div><div class="rws">${chips}</div>`:''}${go?`<div class="bt"><button data-o="${go}">${go==1?'صفحة الراوي في التطبيق':go==2?'صفحة الصحابي في التطبيق':'مراسيله في التطبيق'}</button></div>`:''}<div class="bt"><button data-o="c">نسخ</button><button data-o="s">مشاركة</button></div>`;
+shc.dataset.n=nm;shc.dataset.s=nm;shc.dataset.t=e[0]+'\nالطبقة: '+T+'\n'+e[3]+(rw.length?'\nالرواة عنه: '+rw.join('، '):'')+'\n— الرواة المرسلون';
+if(sh.hidden)openSh();shc.parentElement.scrollTop=0}
+const ls=(k,v)=>{try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}};
+function r(){r0();if(!out.querySelector('.card')&&tab<4)out.innerHTML='<div class="empty"><div class="ei">⌕</div><b>لا توجد نتائج</b><span>جرّب كلمات أقل أو أزل التصفية.</span><button id="clr">مسح البحث والتصفية</button></div>';
+const act=[tab<3?f.value:'',ft.value,fb.value].filter(Boolean).length,tg=$('ftog');tg.dataset.n=act||'';tg.classList.toggle('on',!!act);tg.style.display=tab>=4?'none':'';document.querySelector('.sbar').style.display=tab==4?'none':'';document.querySelector('.leg').style.display=tab>=4?'none':'';if(tab>=4)$('fp').hidden=true;$('qc').hidden=!q.value;ls('tab',tab)}
+function st(t){tab=t;for(let i=1;i<=5;i++)$('t'+i).classList.toggle('on',t==i);r()}
+$('t1').onclick=()=>st(1);$('t2').onclick=()=>st(2);$('t3').onclick=()=>st(3);$('t4').onclick=()=>st(4);$('t5').onclick=()=>st(5);let dtm;q.oninput=()=>{$('qc').hidden=!q.value;clearTimeout(dtm);dtm=setTimeout(r,140)};f.onchange=r;ft.onchange=r;fb.onchange=r;
+const ts=$('ts');
+const toast=m=>{ts.textContent=m;ts.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>ts.hidden=true,1600)};
+const cp=async t=>{try{await navigator.clipboard.writeText(t)}catch(e){const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();document.execCommand('copy');a.remove()}toast('تم النسخ')};
+const shr=async t=>{if(navigator.share){try{await navigator.share({text:t})}catch(e){}return}cp(t)};
+const sheetTxt=(n,s,m)=>{const k=n+'|'+s,d=DT[k],h=HD[k];return n+' ← '+s+'\nالحالة: '+L[m]+(m=='?'&&RJ[k]?'\nالراجح: '+(RJ[k]=='+'?'سمع منه':'لم يسمع منه'):'')+(d&&d.c?'\nعدد الأحاديث: '+hc(+d.c):'')+(d?'\n'+d.t:'')+(h?'\nالأحاديث:\n- '+h.join('\n- '):'')+'\n— الرواة المرسلون'};
+const cardTxt=c=>{const h=c.querySelector('h3').cloneNode(true);h.querySelectorAll('.cp,.num').forEach(x=>x.remove());let t=h.textContent.trim();c.querySelectorAll('.bx').forEach(b=>{t+='\n'+b.querySelector('.lb').firstChild.textContent+': '+[...b.querySelectorAll('.chip')].map(x=>x.firstChild.textContent).join('، ')});return t+'\n— الرواة المرسلون'};
+const sh=$('sh'),shc=$('shc');
+out.onclick=e=>{const tb=e.target.closest('.tjb,.nm');if(tb){openTj(+tb.dataset.tj);return}const tri=e.target.closest('.tri');if(tri){openTj(+tri.dataset.i);return}if(e.target.id=='clr'){q.value='';f.value='';ft.value='';fb.value='';r();return}const cb=e.target.closest('.cp');if(cb){cp(cardTxt(cb.closest('.card')));return}const b=e.target.closest('.bi');if(b){q.value=b.dataset.v;f.value='';st(+b.dataset.go);scrollTo(0,0);return}const c=e.target.closest('.chip');if(!c)return;const{n,s,m}=c.dataset,d=DT[n+'|'+s],h=HD[n+'|'+s];
+shc.innerHTML=`<h2>${nmL(n)} ← ${nmL(s)}</h2><span class="st ${C[m]}">${IC[m]} ${L[m]}</span>`+(RJ[n+'|'+s]&&m=='?'?`<div class="rjl">الراجح في الملف: ${RJ[n+'|'+s]=='+'?'سمع منه':'لم يسمع منه'}</div>`:'')+(d&&d.c?`<div class="ct">${hc(+d.c)} في الكتب الستة</div>`:'')+`${d?`<div class="tx">${d.t}</div>`:''}${h?`<div class="ht">الأحاديث</div>`+h.map(x=>`<div class="hi">${x}</div>`).join(''):''}${!d&&!h?`<div class="tx">${{'+':'نصّ الملف على أنه سمع منه.','-':'نصّ الملف على أنه لم يسمع منه.','?':'ذكر الملف الخلاف في سماعه منه.'}[m]} ولم يُسجَّل لهذه الحالة تفصيل إضافي (أقوال الأئمة أو الأحاديث).</div>`:''}${tjRow(n,s)}<div class="bt"><button data-o="1">صفحة الراوي</button><button data-o="2">صفحة الصحابي</button></div><div class="bt"><button data-o="c">نسخ</button><button data-o="s">مشاركة</button></div>`;
+shc.dataset.n=n;shc.dataset.s=s;shc.dataset.t=sheetTxt(n,s,m);openSh()};
+shc.onclick=e=>{const tj=e.target.closest('[data-tj]');if(tj){openTj(+tj.dataset.tj);return}const o=e.target.dataset.o;if(!o)return;if(o=='c'){cp(shc.dataset.t);return}if(o=='s'){shr(shc.dataset.t);return}q.value=o=='1'?shc.dataset.n:shc.dataset.s;f.value='';closeSh();st(+o);scrollTo(0,0)};
+const openSh=()=>{sh.hidden=false;document.body.style.overflow='hidden';try{history.pushState({sh:1},'')}catch(e){}};
+const closeSh=pop=>{if(sh.hidden)return;sh.hidden=true;document.body.style.overflow='';if(!pop){try{if(history.state&&history.state.sh)history.back()}catch(e){}}};
+sh.onclick=e=>{if(e.target==sh)closeSh()};$('shx').onclick=()=>closeSh();
+addEventListener('popstate',()=>closeSh(true));addEventListener('keydown',e=>{if(e.key=='Escape')closeSh()});
+const root=document.documentElement;
+const applyTheme=t=>{if(t=='light'||t=='dark')root.dataset.theme=t;else delete root.dataset.theme;$('th').textContent=t=='light'?'☀':t=='dark'?'☾':'◐';$('th').title='المظهر: '+({light:'فاتح',dark:'داكن'}[t]||'تلقائي')};
+let thm=ls('th')||'auto';applyTheme(thm);$('th').onclick=()=>{thm=thm=='auto'?'light':thm=='light'?'dark':'auto';ls('th',thm);applyTheme(thm)};
+let fz=+ls('fz')||17;const applyFz=()=>root.style.setProperty('--fs',fz+'px');applyFz();
+$('fzm').onclick=()=>{fz=Math.max(14,fz-1);ls('fz',fz);applyFz()};$('fzp').onclick=()=>{fz=Math.min(24,fz+1);ls('fz',fz);applyFz()};
+$('ftog').onclick=()=>{$('fp').hidden=!$('fp').hidden};
+const upb=$('up');addEventListener('scroll',()=>{upb.hidden=scrollY<500},{passive:true});upb.onclick=()=>scrollTo({top:0,behavior:'smooth'});
+
+let dp;addEventListener('beforeinstallprompt',e=>{e.preventDefault();dp=e;$('ins').hidden=false});
+$('ins').onclick=()=>{if(dp){dp.prompt();dp=null;$('ins').hidden=true}};
+function chkApp(){if('serviceWorker' in navigator)navigator.serviceWorker.ready.then(r=>r.active&&r.active.postMessage('CHECK')).catch(()=>{})}
+if('serviceWorker' in navigator&&/^https?:/.test(location.protocol)){
+const had=!!navigator.serviceWorker.controller;let rl=0;
+navigator.serviceWorker.addEventListener('controllerchange',()=>{if(had&&!rl){rl=1;location.reload()}});
+navigator.serviceWorker.register('sw.js').then(reg=>{
+const show=w=>{$('upd').hidden=false;$('updb').onclick=()=>{$('updb').textContent='جارٍ التحديث…';w.postMessage('SKIP_WAITING')}};
+if(reg.waiting&&navigator.serviceWorker.controller)show(reg.waiting);
+reg.addEventListener('updatefound',()=>{const w=reg.installing;w.addEventListener('statechange',()=>{if(w.state==='installed'&&navigator.serviceWorker.controller)show(w)})});
+const chk=()=>{reg.update().catch(()=>{});chkApp()};
+navigator.serviceWorker.addEventListener('message',e=>{if(e.data==='UPDATE'&&$('upd').hidden){$('upd').hidden=false;$('updb').onclick=()=>location.reload()}});
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)chk()});setInterval(chk,1800000);setTimeout(chkApp,3000);
+}).catch(()=>{})}
+{const t0=+ls('tab');st(t0>=1&&t0<=5?t0:1)}
+if(window.TJ)onTJ();
+</script>
+</body>
+</html>
