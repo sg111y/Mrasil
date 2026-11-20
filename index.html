@@ -128,6 +128,39 @@ main{max-width:900px;margin:auto;padding:12px}
 .tri b{display:block;line-height:1.5}
 .tri span{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;color:var(--mu);font-size:.8em;line-height:1.7}
 .nav button{font-size:.68em}
+.miss{color:var(--rs);font-weight:700;margin-bottom:8px;font-size:1.05em}
+
+.tg{margin-bottom:4px}
+.tgh{width:100%;display:flex;align-items:center;gap:10px;padding:10px 14px;margin:10px 0 8px;border:1px solid var(--bd);border-radius:14px;background:var(--gl);color:var(--goldt);font-weight:700;cursor:pointer;text-align:right}
+.tgh small{margin-right:auto;background:var(--card);border-radius:999px;padding:0 10px;font-size:.78em;font-family:sans-serif;color:var(--mu)}
+.chev{width:9px;height:9px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);margin-top:-3px;transition:transform .2s}
+.tg.c .chev{transform:rotate(135deg);margin-top:0}
+.tg.c .tgb{display:none}
+.ftb{display:flex;gap:8px;margin-bottom:2px}
+.ftb button{flex:1;padding:7px;border-radius:12px;border:1px solid var(--bd);background:var(--card);cursor:pointer;font-size:.85em}
+
+.qz p{margin:0 0 6px}.qs{color:var(--mu);font-size:.88em;line-height:1.9}
+.qh{margin:14px 0 6px;font-weight:700;color:var(--goldt);font-size:.9em}
+.qseg{display:flex;gap:8px}
+.qseg button{flex:1;padding:10px 6px;border:1.5px solid var(--bd);background:var(--card);border-radius:14px;cursor:pointer;font-weight:700}
+.qseg button small{display:block;font-weight:400;color:var(--mu);font-size:.72em;margin-top:2px}
+.qseg button.on{border-color:var(--ac);background:var(--gl)}.qseg button:disabled{opacity:.5}
+.qgo{display:block;width:100%;margin-top:14px;padding:12px;border:0;border-radius:14px;background:var(--ac);color:var(--onac);font-weight:700;cursor:pointer;font-size:1em}
+.qtop{display:flex;justify-content:space-between;font-size:.8em;color:var(--mu)}
+.qp{height:6px;border-radius:999px;background:var(--bd);margin:6px 0 14px;overflow:hidden}.qp i{display:block;height:100%;background:var(--gold);border-radius:999px;transition:width .3s}
+.qt{font-size:1.12em;line-height:2;margin-bottom:10px}.qt b{color:var(--ac)}
+.qopts{display:flex;flex-direction:column;gap:8px}
+.qopt{padding:12px;border-radius:14px;border:1.5px solid var(--bd);background:var(--card);font-weight:700;cursor:pointer;font-size:1em}
+.qopt.g{border-color:var(--gs)}.qopt.y{border-color:var(--ys)}.qopt.r{border-color:var(--rs)}
+.qopt.ok{background:var(--gs);color:#fff;border-color:var(--gs)}.qopt.no{background:var(--rs);color:#fff;border-color:var(--rs)}
+.qopt:disabled{cursor:default}
+.qx{margin-top:12px;padding:12px 14px;border-radius:14px;line-height:1.9;font-size:.93em}
+.qx.ok{background:var(--gb)}.qx.no{background:var(--rb)}.qv{font-weight:700;margin-bottom:4px}
+.qres{text-align:center;margin:8px 0}.qres b{font-size:3em;color:var(--ac);font-family:sans-serif}.qres span{font-size:1.1em;margin:0 6px}.qres small{display:block;color:var(--goldt);font-family:sans-serif;font-weight:700;font-size:1.1em}
+.qm{text-align:center;font-weight:700}
+.qbt{display:flex;flex-direction:column;gap:2px}.qbt button:not(.qgo){margin-top:8px;padding:11px;border-radius:14px;border:1.5px solid var(--ac);background:none;color:var(--ac);font-weight:700;cursor:pointer}
+.nav button{font-size:.62em}.nav svg{width:21px;height:21px}
+.qh2{margin-top:8px;padding:10px 14px;border-right:4px solid var(--gold);background:var(--bg);border-radius:10px;font-size:.92em;line-height:2}
 </style>
 </head>
 <body>
@@ -138,7 +171,7 @@ main{max-width:900px;margin:auto;padding:12px}
 </div>
 <main><div class="leg"><span class="lg g">سمع</span><span class="lg y">مختلف فيه</span><span class="lg r">لم يسمع</span><span>— اضغط على أي اسم مسطّر بالنقط لترجمته، وعلى الأسماء داخل الصناديق لتفاصيل السماع</span></div><div id="out"></div>
 <div class="about"><button id="ins" hidden>تثبيت التطبيق</button><div>المصدر: ملف «الرواة المرسلين» — وقف أبي هريرة لحفظ السنّة النبوية. البيانات مُدخلة يدويًا من الملف، فراجع الأصل عند الاعتماد.</div><div>للتثبيت على الآيفون: زر المشاركة ← «إضافة إلى الشاشة الرئيسية». ويعمل بعد ذلك دون إنترنت.</div></div></main>
-<nav class="nav"><button id="t1" class="on"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>الرواة</button><button id="t2"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-3.6 3-6 7-6s7 2.4 7 6"/><circle cx="17" cy="9" r="2.5"/><path d="M17 14c3 0 5 1.8 5 4.5"/></svg>الصحابة</button><button id="t3"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h7"/></svg>المراسيل</button><button id="t4"><svg viewBox="0 0 24 24"><path d="M5 20V10M12 20V4M19 20v-7"/></svg>إحصائيات</button><button id="t5"><svg viewBox="0 0 24 24"><path d="M5 4h11a3 3 0 013 3v13H8a3 3 0 01-3-3z"/><path d="M5 17a3 3 0 013-3h11M9 8h6"/></svg>التراجم</button></nav>
+<nav class="nav"><button id="t1" class="on"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>الرواة</button><button id="t2"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-3.6 3-6 7-6s7 2.4 7 6"/><circle cx="17" cy="9" r="2.5"/><path d="M17 14c3 0 5 1.8 5 4.5"/></svg>الصحابة</button><button id="t3"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h7"/></svg>المراسيل</button><button id="t4"><svg viewBox="0 0 24 24"><path d="M5 20V10M12 20V4M19 20v-7"/></svg>إحصائيات</button><button id="t5"><svg viewBox="0 0 24 24"><path d="M5 4h11a3 3 0 013 3v13H8a3 3 0 01-3-3z"/><path d="M5 17a3 3 0 013-3h11M9 8h6"/></svg>التراجم</button><button id="t6" aria-label="اختبار"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 015 .5c0 1.7-2.5 2-2.5 3.5M12 17h.01"/></svg>اختبار</button></nav>
 <div id="ts" hidden></div>
 <div id="upd" hidden><span>يتوفر إصدار جديد من التطبيق</span><button id="updb">تحديث الآن</button></div>
 <button id="up" hidden aria-label="للأعلى"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 15l6-6 6 6"/></svg></button>
@@ -735,11 +768,51 @@ return `<div class="card"><h3>ملخّص</h3><div class="sm"><div class="s g"><b
 +sec('أكثر الرواة نفيًا للسماع (عدد الشيوخ الذين لم يسمع منهم)',bi(topN(N,10),1,'b-r'))
 +sec('توزيع الرواة بحسب الطبقة',bi(ORD.filter(t=>TT[t]).map(t=>[t,TT[t]]),1,'b-a'))
 +sec('توزيع الرواة بحسب البلد',bi(topN(BB,8),1,'b-a'))}
+
+let qz=null;const qcfg={m:'s',n:10};
+const shuf=a=>{for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+const QL={'+':'سمع','?':'مختلف فيه','-':'لم يسمع'};
+function qzStart(m,n){let list=[];
+if(m=='s'){const pool={'+':[],'-':[],'?':[]};P.forEach(p=>p.e.forEach(x=>pool[x.m].push([p.n,x.s,x.m])));const seen=new Set(),ks=['+','?','-'];let g=0;
+while(list.length<n&&g++<2000){const k=ks[list.length%3],a=pool[k],x=a[Math.random()*a.length|0],id=x[0]+'|'+x[1];if(seen.has(id))continue;seen.add(id);list.push({t:'s',n:x[0],s:x[1],c:x[2]})}}
+else{const cnt={};SEC.forEach(x=>x.h.forEach(t=>cnt[t]=(cnt[t]||0)+1));const pool=[];SEC.forEach((x,i)=>x.h.forEach(t=>{if(cnt[t]==1&&t.length>=18)pool.push([i,t])}));const seen=new Set();let g=0;
+while(list.length<n&&g++<2000){const[i,t]=pool[Math.random()*pool.length|0];if(seen.has(t))continue;seen.add(t);const o=[SEC[i].n];while(o.length<4){const y=SEC[Math.random()*SEC.length|0].n;if(!o.includes(y))o.push(y)}list.push({t:'m',i,h:t,c:SEC[i].n,o:shuf(o)})}}
+qz={mode:m,list:shuf(list),i:0,score:0,ans:[],sel:null,done:false}}
+function qzAct(d){const a=d.q,v=d.v;
+if(a=='mode')qcfg.m=v;else if(a=='count')qcfg.n=+v;else if(a=='start')qzStart(qcfg.m,qcfg.n);
+else if(a=='ans'){if(qz.sel!=null)return;const q=qz.list[qz.i],ok=String(q.c)==v;qz.sel=v;if(ok)qz.score++;qz.ans.push({q,v,ok})}
+else if(a=='next'){qz.i++;qz.sel=null;if(qz.i>=qz.list.length)qz.done=true}
+else if(a=='again')qz=null;
+else if(a=='retry'){const w=qz.ans.filter(x=>!x.ok).map(x=>x.q);qz={mode:qz.mode,list:shuf(w),i:0,score:0,ans:[],sel:null,done:false,retry:true}}
+renderQ();if(a=='ans'){const x=out.querySelector('.qx');if(x)x.scrollIntoView({block:'nearest',behavior:'smooth'})}else scrollTo(0,0)}
+function qExpl(q){if(q.t=='m'){const x=SEC[q.i];return `هذا من مراسيل <b>${x.n}</b>${x.t&&x.t!='—'?` — الطبقة ${x.t}`:''}${x.b&&x.b!='—'?`، ${x.b}`:''}.<br><span class="qs">له من المراسيل في الملف: ${x.h.length} ${x.h.length>2?'أحاديث':x.h.length==2?'حديثان':'حديث'}.</span>`}
+const k=q.n+'|'+q.s,d=DT[k],rj=q.c=='?'&&RJ[k];
+return `الجواب: <b>${QL[q.c]}</b>${rj?` — والراجح في الملف: <b>${rj=='+'?'سمع منه':'لم يسمع منه'}</b>`:''}${d?`<br><span class="qs">${d.t}</span>`:''}`}
+function qText(q){return q.t=='s'?`هل سمع «<b>${q.n}</b>» من «<b>${q.s}</b>»؟`:`هذا الحديث من مراسيل أي راوٍ؟<div class="qh2">${q.h.length>170?q.h.slice(0,170)+'…':q.h}</div>`}
+function renderQ(){
+if(!qz){out.innerHTML=`<div class="card qz"><h3>اختبر نفسك</h3><p class="qs">أسئلة مأخوذة من بيانات «الرواة المرسلين»، وبعد كل جواب يظهر الجواب الصحيح وتوضيحه.</p>
+<div class="qh">نوع الاختبار</div><div class="qseg"><button data-q="mode" data-v="s" class="${qcfg.m=='s'?'on':''}">هل سمع؟<small>سمع / مختلف فيه / لم يسمع</small></button><button data-q="mode" data-v="m" class="${qcfg.m=='m'?'on':''}">مرسل مَن؟<small>انسب الحديث لراويه</small></button></div>
+<div class="qh">عدد الأسئلة</div><div class="qseg">${[10,20,30].map(n=>`<button data-q="count" data-v="${n}" class="${qcfg.n==n?'on':''}">${n}</button>`).join('')}</div>
+<button class="qgo" data-q="start">ابدأ الاختبار</button>${['s','m'].map(m=>+ls('qb'+m)?`<div class="qs" style="margin-top:10px">أفضل نتيجة في «${m=='s'?'هل سمع؟':'مرسل مَن؟'}»: ${ls('qb'+m)}٪</div>`:'').join('')}</div>`;return}
+if(qz.done){const n=qz.list.length,pct=n?Math.round(qz.score/n*100):0;if(!qz.retry&&pct>(+ls('qb'+qz.mode)||0))ls('qb'+qz.mode,pct);
+const wr=qz.ans.filter(x=>!x.ok);
+out.innerHTML=`<div class="card qz"><h3>النتيجة</h3><div class="qres"><b>${qz.score}</b><span>من ${n}</span><small>${pct}٪</small></div><p class="qm">${pct>=90?'ممتاز! أتقنتَ هذا الباب.':pct>=70?'جيد جدًا، قريب من الإتقان.':pct>=50?'جيد، وتحتاج مراجعة بعض المواضع.':'راجع البيانات ثم أعد المحاولة.'}</p>
+<div class="qbt">${wr.length?`<button data-q="retry" class="qgo">أعد أسئلتي الخاطئة (${wr.length})</button>`:''}<button data-q="again" class="${wr.length?'':'qgo'}">اختبار جديد</button></div></div>`
++(wr.length?`<div class="qh" style="margin:14px 4px 6px">الأسئلة التي أخطأتَ فيها</div>`+wr.map(x=>`<div class="card qw"><div class="qt">${qText(x.q)}</div><div class="qx no">${qExpl(x.q)}</div></div>`).join(''):'');return}
+const q=qz.list[qz.i],n=qz.list.length,opts=q.t=='s'?[['+','سمع','g'],['?','مختلف فيه','y'],['-','لم يسمع','r']]:q.o.map(nm=>[nm,nm,'']);
+const sel=qz.sel,ok=sel!=null&&String(q.c)==sel;
+out.innerHTML=`<div class="card qz"><div class="qtop"><span>سؤال ${qz.i+1} من ${n}</span><span>الدرجة: ${qz.score}</span></div><div class="qp"><i style="width:${(qz.i+(sel!=null?1:0))/n*100}%"></i></div>
+<div class="qt">${qText(q)}</div><div class="qopts">${opts.map(([v,l,c])=>`<button data-q="ans" data-v="${v}" class="qopt ${c} ${sel!=null?(String(q.c)==v?'ok':(sel==v?'no':'')):''}" ${sel!=null?'disabled':''}>${l}</button>`).join('')}</div>
+${sel!=null?`<div class="qx ${ok?'ok':'no'}"><div class="qv">${ok?'✓ أحسنت، إجابة صحيحة':'✕ إجابة غير صحيحة'}</div>${qExpl(q)}</div><button class="qgo" data-q="next">${qz.i+1>=n?'عرض النتيجة':'السؤال التالي'}</button>`:''}</div>`}
 function r0(){const v=nz(q.value),tk=v?v.split(' '):[],m=f.value;let h='';
 const hit=t=>tk.every(w=>t.includes(w));
 $('fs').style.display=tab>=3?'none':'';$('fr').style.display=tab>=4?'none':'';
-if(tab==5){TJ.forEach(e=>{if(!e.k)e.k=nz(e[0]+' '+e[3])});const L2=TJ.map((e,i)=>[e,i]).filter(([e])=>!tk.length||hit(e.k));let o='',cur=-1;
-for(const[e,i]of L2){if(e[1]!=cur){cur=e[1];o+=`<div class="tgrp">الطبقة ${TJN[cur]}</div>`}const pv=e[3].split('،').slice(1).join('،').slice(0,110);o+=`<div class="tri" data-i="${i}"><b>${e[0]}</b><span>${pv}</span></div>`}
+if(tab==6){renderQ();return}
+if(tab==5){if(typeof TJ==='undefined'){out.innerHTML='<div class="empty"><div class="ei">…</div><b>جارٍ تحميل التراجم</b><span>إن استمر ذلك فتأكد من وجود ملف tarajim.js بجانب الصفحة.</span></div>';return}TJ.forEach(e=>{if(!e.k)e.k=nz(e[0]+' '+e[3])});const L2=TJ.map((e,i)=>[e,i]).filter(([e])=>!tk.length||hit(e.k));const G={};
+for(const[e,i]of L2){(G[e[1]]??=[]).push([e,i])}
+const fold=new Set((ls('fold')||'').split(',').filter(x=>x!==''));let o=tk.length?'':'<div class="ftb"><button data-fa="1">طيّ الكل</button><button data-fa="0">فتح الكل</button></div>';
+for(const g of Object.keys(G)){const c=!tk.length&&fold.has(g);
+o+=`<section class="tg${c?' c':''}"><button class="tgh" data-g="${g}" aria-expanded="${!c}"><span>الطبقة ${TJN[g]}</span><small>${G[g].length}</small><i class="chev"></i></button><div class="tgb">`+G[g].map(([e,i])=>{const pv=e[3].split('،').slice(1).join('،').slice(0,110);return `<div class="tri" data-i="${i}"><b>${e[0]}</b><span>${pv}</span></div>`}).join('')+'</div></section>'}
 out.innerHTML=`<div class="cnt">${L2.length} ترجمة من ملف «ملخص رواة السنة»</div>`+o;return}
 if(tab==4){out.innerHTML=stats();return}
 if(tab==3){const a=SEC.filter(x=>okM(x.t,x.b)&&(!v||hit(x.k+' '+x.h.map(nz).join(' '))));
@@ -772,9 +845,9 @@ shc.dataset.n=nm;shc.dataset.s=nm;shc.dataset.t=e[0]+'\nالطبقة: '+T+'\n'+e
 if(sh.hidden)openSh();shc.parentElement.scrollTop=0}
 const ls=(k,v)=>{try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}};
 function r(){r0();if(!out.querySelector('.card')&&tab<4)out.innerHTML='<div class="empty"><div class="ei">⌕</div><b>لا توجد نتائج</b><span>جرّب كلمات أقل أو أزل التصفية.</span><button id="clr">مسح البحث والتصفية</button></div>';
-const act=[tab<3?f.value:'',ft.value,fb.value].filter(Boolean).length,tg=$('ftog');tg.dataset.n=act||'';tg.classList.toggle('on',!!act);tg.style.display=tab>=4?'none':'';document.querySelector('.sbar').style.display=tab==4?'none':'';document.querySelector('.leg').style.display=tab>=4?'none':'';if(tab>=4)$('fp').hidden=true;$('qc').hidden=!q.value;ls('tab',tab)}
-function st(t){tab=t;for(let i=1;i<=5;i++)$('t'+i).classList.toggle('on',t==i);r()}
-$('t1').onclick=()=>st(1);$('t2').onclick=()=>st(2);$('t3').onclick=()=>st(3);$('t4').onclick=()=>st(4);$('t5').onclick=()=>st(5);let dtm;q.oninput=()=>{$('qc').hidden=!q.value;clearTimeout(dtm);dtm=setTimeout(r,140)};f.onchange=r;ft.onchange=r;fb.onchange=r;
+const act=[tab<3?f.value:'',ft.value,fb.value].filter(Boolean).length,tg=$('ftog');tg.dataset.n=act||'';tg.classList.toggle('on',!!act);tg.style.display=tab>=4?'none':'';document.querySelector('.sbar').style.display=(tab==4||tab==6)?'none':'';document.querySelector('.leg').style.display=tab>=4?'none':'';if(tab>=4)$('fp').hidden=true;$('qc').hidden=!q.value;ls('tab',tab)}
+function st(t){tab=t;for(let i=1;i<=6;i++)$('t'+i).classList.toggle('on',t==i);r()}
+$('t1').onclick=()=>st(1);$('t2').onclick=()=>st(2);$('t3').onclick=()=>st(3);$('t4').onclick=()=>st(4);$('t5').onclick=()=>st(5);$('t6').onclick=()=>st(6);let dtm;q.oninput=()=>{$('qc').hidden=!q.value;clearTimeout(dtm);dtm=setTimeout(r,140)};f.onchange=r;ft.onchange=r;fb.onchange=r;
 const ts=$('ts');
 const toast=m=>{ts.textContent=m;ts.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>ts.hidden=true,1600)};
 const cp=async t=>{try{await navigator.clipboard.writeText(t)}catch(e){const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();document.execCommand('copy');a.remove()}toast('تم النسخ')};
@@ -782,7 +855,9 @@ const shr=async t=>{if(navigator.share){try{await navigator.share({text:t})}catc
 const sheetTxt=(n,s,m)=>{const k=n+'|'+s,d=DT[k],h=HD[k];return n+' ← '+s+'\nالحالة: '+L[m]+(m=='?'&&RJ[k]?'\nالراجح: '+(RJ[k]=='+'?'سمع منه':'لم يسمع منه'):'')+(d&&d.c?'\nعدد الأحاديث: '+hc(+d.c):'')+(d?'\n'+d.t:'')+(h?'\nالأحاديث:\n- '+h.join('\n- '):'')+'\n— الرواة المرسلون'};
 const cardTxt=c=>{const h=c.querySelector('h3').cloneNode(true);h.querySelectorAll('.cp,.num').forEach(x=>x.remove());let t=h.textContent.trim();c.querySelectorAll('.bx').forEach(b=>{t+='\n'+b.querySelector('.lb').firstChild.textContent+': '+[...b.querySelectorAll('.chip')].map(x=>x.firstChild.textContent).join('، ')});return t+'\n— الرواة المرسلون'};
 const sh=$('sh'),shc=$('shc');
-out.onclick=e=>{const tb=e.target.closest('.tjb,.nm');if(tb){openTj(+tb.dataset.tj);return}const tri=e.target.closest('.tri');if(tri){openTj(+tri.dataset.i);return}if(e.target.id=='clr'){q.value='';f.value='';ft.value='';fb.value='';r();return}const cb=e.target.closest('.cp');if(cb){cp(cardTxt(cb.closest('.card')));return}const b=e.target.closest('.bi');if(b){q.value=b.dataset.v;f.value='';st(+b.dataset.go);scrollTo(0,0);return}const c=e.target.closest('.chip');if(!c)return;const{n,s,m}=c.dataset,d=DT[n+'|'+s],h=HD[n+'|'+s];
+out.onclick=e=>{const qa=e.target.closest('[data-q]');if(qa){qzAct(qa.dataset);return}const gh=e.target.closest('.tgh');if(gh){const g=gh.dataset.g,sec=gh.parentElement,f2=new Set((ls('fold')||'').split(',').filter(x=>x!==''));sec.classList.toggle('c');const cl=sec.classList.contains('c');cl?f2.add(g):f2.delete(g);gh.setAttribute('aria-expanded',!cl);ls('fold',[...f2].join(','));return}
+const fa=e.target.closest('[data-fa]');if(fa){const all=fa.dataset.fa=='1',ids=[];out.querySelectorAll('.tg').forEach(x=>{x.classList.toggle('c',all);ids.push(x.querySelector('.tgh').dataset.g);x.querySelector('.tgh').setAttribute('aria-expanded',!all)});ls('fold',all?ids.join(','):'');return}
+const tb=e.target.closest('.tjb,.nm');if(tb){openTj(+tb.dataset.tj);return}const tri=e.target.closest('.tri');if(tri){openTj(+tri.dataset.i);return}if(e.target.id=='clr'){q.value='';f.value='';ft.value='';fb.value='';r();return}const cb=e.target.closest('.cp');if(cb){cp(cardTxt(cb.closest('.card')));return}const b=e.target.closest('.bi');if(b){q.value=b.dataset.v;f.value='';st(+b.dataset.go);scrollTo(0,0);return}const c=e.target.closest('.chip');if(!c)return;const{n,s,m}=c.dataset,d=DT[n+'|'+s],h=HD[n+'|'+s];
 shc.innerHTML=`<h2>${nmL(n)} ← ${nmL(s)}</h2><span class="st ${C[m]}">${IC[m]} ${L[m]}</span>`+(RJ[n+'|'+s]&&m=='?'?`<div class="rjl">الراجح في الملف: ${RJ[n+'|'+s]=='+'?'سمع منه':'لم يسمع منه'}</div>`:'')+(d&&d.c?`<div class="ct">${hc(+d.c)} في الكتب الستة</div>`:'')+`${d?`<div class="tx">${d.t}</div>`:''}${h?`<div class="ht">الأحاديث</div>`+h.map(x=>`<div class="hi">${x}</div>`).join(''):''}${!d&&!h?`<div class="tx">${{'+':'نصّ الملف على أنه سمع منه.','-':'نصّ الملف على أنه لم يسمع منه.','?':'ذكر الملف الخلاف في سماعه منه.'}[m]} ولم يُسجَّل لهذه الحالة تفصيل إضافي (أقوال الأئمة أو الأحاديث).</div>`:''}${tjRow(n,s)}<div class="bt"><button data-o="1">صفحة الراوي</button><button data-o="2">صفحة الصحابي</button></div><div class="bt"><button data-o="c">نسخ</button><button data-o="s">مشاركة</button></div>`;
 shc.dataset.n=n;shc.dataset.s=s;shc.dataset.t=sheetTxt(n,s,m);openSh()};
 shc.onclick=e=>{const tj=e.target.closest('[data-tj]');if(tj){openTj(+tj.dataset.tj);return}const o=e.target.dataset.o;if(!o)return;if(o=='c'){cp(shc.dataset.t);return}if(o=='s'){shr(shc.dataset.t);return}q.value=o=='1'?shc.dataset.n:shc.dataset.s;f.value='';closeSh();st(+o);scrollTo(0,0)};
@@ -812,8 +887,9 @@ const chk=()=>{reg.update().catch(()=>{});chkApp()};
 navigator.serviceWorker.addEventListener('message',e=>{if(e.data==='UPDATE'&&$('upd').hidden){$('upd').hidden=false;$('updb').onclick=()=>location.reload()}});
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)chk()});setInterval(chk,1800000);setTimeout(chkApp,3000);
 }).catch(()=>{})}
-{const t0=+ls('tab');st(t0>=1&&t0<=5?t0:1)}
+{const t0=+ls('tab');st(t0>=1&&t0<=6?t0:1)}
 if(window.TJ)onTJ();
+setTimeout(()=>{if(!window.TJ){const a=document.querySelector('.about');if(a)a.insertAdjacentHTML('afterbegin','<div class="miss">تنبيه: ملف التراجم tarajim.js غير موجود بجانب الصفحة، لذلك لا تظهر التراجم. ارفعه في المجلد نفسه مع index.html.</div>')}},4000);
 </script>
 </body>
 </html>
